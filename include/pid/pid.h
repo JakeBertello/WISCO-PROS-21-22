@@ -1,6 +1,6 @@
-#ifndef PROS_PID_PID_H_
-#define PROS_PID_PID_H_
+#ifndef WISCOPROS2122_PID_PID_H_
+#define WISCOPROS2122_PID_PID_H_
 
 #include "main/main.h"
 
-#endif  // PROS_PID_PID_H_
+#endif  // WISCOPROS2122_PID_PID_H_

@@ -1,7 +1,7 @@
-#ifndef PROS_MAIN_OPCONTROL_H_
-#define PROS_MAIN_OPCONTROL_H_
+#ifndef WISCOPROS2122_MAIN_OPCONTROL_H_
+#define WISCOPROS2122_MAIN_OPCONTROL_H_
 
-#include "main.h""
+#include "main.h"
 
 
-#endif  // PROS_MAIN_OPCONTROL_H_
+#endif  // WISCOPROS2122_MAIN_OPCONTROL_H_

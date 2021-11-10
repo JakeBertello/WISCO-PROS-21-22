@@ -1,7 +1,8 @@
-#ifndef PROS_MAIN_INITIALIZE_H_
-#define PROS_MAIN_INITIALIZE_H_
+#ifndef WISCOPROS2122_MAIN_INITIALIZE_H_
+#define WISCOPROS2122_MAIN_INITIALIZE_H_
 
-#include "main.h""
+#include "main.h"
+#include "misc/config.h"
 
 
-#endif  // PROS_MAIN_INITIALIZE_H_
+#endif  // WISCOPROS2122_MAIN_INITIALIZE_H_
