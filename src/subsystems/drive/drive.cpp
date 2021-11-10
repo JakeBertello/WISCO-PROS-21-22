@@ -1,5 +1,5 @@
 #include "drive.h"
 
-DriveBuilder Drive::build() {
+drive::DriveBuilder drive::Drive::build() {
     return DriveBuilder();
 }
