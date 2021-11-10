@@ -3,53 +3,41 @@
 
 #include "main/main.h"
 
+class DriveBuilder;
+
 class Drive {
+ public:
+    friend class DriveBuilder;
+    static DriveBuilder build();
+
  private:
+    Drive() = default;
+
     std::vector<pros::Motor> leftDriveMotors;
     std::vector<pros::Motor> rightDriveMotors;
-    std::vector<pros::Motor> allDriveMotors;
-    pros::Rotation leftRot;
-    pros::Rotation rightRot;
-    pros::Rotation strafeRot;
+    // pros::Rotation leftRot;
+    // pros::Rotation rightRot;
+    // pros::Rotation strafeRot;
+};
 
+class DriveBuilder {
  public:
-    static class DriveBuilder {
-        std::vector<pros::Motor> *leftDriveMotors;
-        std::vector<pros::Motor> *rightDriveMotors;
-        std::vector<pros::Motor> *allDriveMotors;
-        pros::Rotation *leftRot;
-        pros::Rotation *rightRot;
-        pros::Rotation *strafeRot;
-        
-        DriveBuilder* withLeftDriveMotor(pros::Motor leftDriveMotor) {
-            this->leftDriveMotors->push_back(leftDriveMotor);
-            return this;
-        }
+    DriveBuilder& withLeftDriveMotor(const pros::Motor &motor) {
+        _drive.leftDriveMotors.push_back(motor);
+        return *this;
+    }
 
-        DriveBuilder* withRightDriveMotor(pros::Motor rightDriveMotor) {
-            this->rightDriveMotors->push_back(rightDriveMotor);
-            return this;
-        }
+    DriveBuilder& withRightDriveMotor(const pros::Motor &motor) {
+        _drive.rightDriveMotors.push_back(motor);
+        return *this;
+    }
 
-        DriveBuilder* withLeftRot(pros::Rotation *leftRot) {
-            this->leftRot = leftRot;
-            return this;
-        }
+    operator Drive&&() {
+        return std::move(_drive);
+    }
 
-        DriveBuilder* withRightRot(pros::Rotation *rightRot) {
-            this->rightRot = rightRot;
-            return this;
-        }
-
-        DriveBuilder* withStrafeRot(pros::Rotation *strafeRot) {
-            this->strafeRot = strafeRot;
-            return this;
-        }
-
-        DriveBuilder* build() {
-            return this;
-        }
-    };
+ private:
+    Drive _drive;
 };
 
 #endif  // PROS_SUBSYSTEMS_DRIVE_DRIVE_H_

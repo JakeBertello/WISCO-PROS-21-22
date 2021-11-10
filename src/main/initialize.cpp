@@ -1,4 +1,5 @@
 #include "main.h"
+#include "subsystems/drive/drive.h"
 
 /**
  * A callback function for LLEMU's center button.
@@ -22,7 +23,21 @@ void on_center_button() {
  * All other competition modes are blocked by initialize; it is recommended
  * to keep execution time for this mode under a few seconds.
  */
-void initialize() {}
+void initialize() {
+    pros::Motor frontLeftDrive(1);
+    pros::Motor middleLeftDrive(2);
+    pros::Motor backLeftDrive(3);
+    pros::Motor frontRightDrive(4);
+    pros::Motor middleRightDrive(5);
+    pros::Motor backRightDrive(6);
+    Drive drive = Drive::build().withLeftDriveMotor(frontLeftDrive)
+                                .withLeftDriveMotor(middleLeftDrive)
+                                .withLeftDriveMotor(backLeftDrive)
+                                .withRightDriveMotor(frontRightDrive)
+                                .withRightDriveMotor(middleRightDrive)
+                                .withRightDriveMotor(backRightDrive);
+    
+}
 
 /**
  * Runs while the robot is in the disabled state of Field Management System or
