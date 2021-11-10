@@ -1,5 +1,5 @@
-#ifndef PROS_SUBSYSTEMS_DRIVE_DRIVE_H_
-#define PROS_SUBSYSTEMS_DRIVE_DRIVE_H_
+#ifndef WISCOPROS2122_SUBSYSTEMS_DRIVE_DRIVE_H_
+#define WISCOPROS2122_SUBSYSTEMS_DRIVE_DRIVE_H_
 
 #include "main/main.h"
 
@@ -11,33 +11,75 @@ class Drive {
     static DriveBuilder build();
 
  private:
-    Drive() = default;
+    Drive() : leftDriveMotors(std::vector<pros::Motor*>()),
+              rightDriveMotors(std::vector<pros::Motor*>()),
+              leftRot(nullptr),
+              rightRot(nullptr),
+              strafeRot(nullptr),
+              imu(nullptr),
+              leftDistance(nullptr),
+              rightDistance(nullptr) {
 
-    std::vector<pros::Motor> leftDriveMotors;
-    std::vector<pros::Motor> rightDriveMotors;
-    // pros::Rotation leftRot;
-    // pros::Rotation rightRot;
-    // pros::Rotation strafeRot;
+    }
+
+    std::vector<pros::Motor*> leftDriveMotors;
+    std::vector<pros::Motor*> rightDriveMotors;
+    pros::Rotation *leftRot;
+    pros::Rotation *rightRot;
+    pros::Rotation *strafeRot;
+    pros::Imu *imu;
+    pros::Distance *leftDistance;
+    pros::Distance *rightDistance;
 };
 
 class DriveBuilder {
  public:
-    DriveBuilder& withLeftDriveMotor(const pros::Motor &motor) {
-        _drive.leftDriveMotors.push_back(motor);
+    DriveBuilder& withLeftDriveMotor(pros::Motor *motor) {
+        drive.leftDriveMotors.push_back(motor);
         return *this;
     }
 
-    DriveBuilder& withRightDriveMotor(const pros::Motor &motor) {
-        _drive.rightDriveMotors.push_back(motor);
+    DriveBuilder& withRightDriveMotor(pros::Motor *motor) {
+        drive.rightDriveMotors.push_back(motor);
+        return *this;
+    }
+
+    DriveBuilder& withLeftRot(pros::Rotation *leftRot) {
+        drive.leftRot = leftRot;
+        return *this;
+    }
+
+    DriveBuilder& withRightRot(pros::Rotation *rightRot) {
+        drive.rightRot = rightRot;
+        return *this;
+    }
+
+    DriveBuilder& withStrafeRot(pros::Rotation *strafeRot) {
+        drive.strafeRot = strafeRot;
+        return *this;
+    }
+
+    DriveBuilder& withImu(pros::Imu *imu) {
+        drive.imu = imu;
+        return *this;
+    }
+
+    DriveBuilder& withLeftDistance(pros::Distance *leftDistance) {
+        drive.leftDistance = leftDistance;
+        return *this;
+    }
+
+    DriveBuilder& withRightDistance(pros::Distance *rightDistance) {
+        drive.rightDistance = rightDistance;
         return *this;
     }
 
     operator Drive&&() {
-        return std::move(_drive);
+        return std::move(drive);
     }
 
  private:
-    Drive _drive;
+    Drive drive;
 };
 
-#endif  // PROS_SUBSYSTEMS_DRIVE_DRIVE_H_
+#endif  // WISCOPROS2122_SUBSYSTEMS_DRIVE_DRIVE_H_
