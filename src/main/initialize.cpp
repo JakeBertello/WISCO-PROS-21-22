@@ -1,5 +1,6 @@
 #include "main.h"
 #include "subsystems/drive/drive.h"
+#include "initialize.h"
 
 /**
  * A callback function for LLEMU's center button.
@@ -24,19 +25,16 @@ void on_center_button() {
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-    pros::Motor frontLeftDrive(1);
-    pros::Motor middleLeftDrive(2);
-    pros::Motor backLeftDrive(3);
-    pros::Motor frontRightDrive(4);
-    pros::Motor middleRightDrive(5);
-    pros::Motor backRightDrive(6);
-    Drive drive = Drive::build().withLeftDriveMotor(frontLeftDrive)
-                                .withLeftDriveMotor(middleLeftDrive)
-                                .withLeftDriveMotor(backLeftDrive)
-                                .withRightDriveMotor(frontRightDrive)
-                                .withRightDriveMotor(middleRightDrive)
-                                .withRightDriveMotor(backRightDrive);
-    
+    Drive drive = Drive::build().withLeftDriveMotor(&config::backLeftDrive)
+                                .withLeftDriveMotor(&config::middleLeftDrive)
+                                .withLeftDriveMotor(&config::backLeftDrive)
+                                .withRightDriveMotor(&config::frontRightDrive)
+                                .withRightDriveMotor(&config::middleRightDrive)
+                                .withRightDriveMotor(&config::backRightDrive)
+                                .withLeftRot(&config::leftRot)
+                                .withRightRot(&config::rightRot)
+                                .withStrafeRot(&config::strafeRot)
+                                .withImu(&config::imu);
 }
 
 /**
