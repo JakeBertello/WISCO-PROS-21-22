@@ -25,12 +25,12 @@ void on_center_button() {
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-    drive::Drive drive = drive::Drive::build().withLeftDriveMotor(&config::backLeftDrive)
-                                .withLeftDriveMotor(&config::middleLeftDrive)
-                                .withLeftDriveMotor(&config::backLeftDrive)
-                                .withRightDriveMotor(&config::frontRightDrive)
-                                .withRightDriveMotor(&config::middleRightDrive)
-                                .withRightDriveMotor(&config::backRightDrive)
+    drive::Drive drive = drive::Drive::build().withLeftMotor(&config::backLeftDrive)
+                                .withLeftMotor(&config::middleLeftDrive)
+                                .withLeftMotor(&config::backLeftDrive)
+                                .withRightMotor(&config::frontRightDrive)
+                                .withRightMotor(&config::middleRightDrive)
+                                .withRightMotor(&config::backRightDrive)
                                 .withLeftRot(&config::leftRot)
                                 .withRightRot(&config::rightRot)
                                 .withStrafeRot(&config::strafeRot)

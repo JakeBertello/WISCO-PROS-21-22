@@ -16,9 +16,18 @@ namespace drive
         friend class DriveBuilder;
         static DriveBuilder build();
 
+        std::vector<pros::Motor*> getLeftMotors();
+        std::vector<pros::Motor*> getRightMotors();
+        pros::Rotation getLeftRot();
+        pros::Rotation getRightRot();
+        pros::Rotation getStrafeRot();
+        pros::Imu getImu();
+        pros::Distance getLeftDistance();
+        pros::Distance getRightDistance();
+
     private:
-        Drive() : leftDriveMotors(std::vector<pros::Motor*>()),
-                rightDriveMotors(std::vector<pros::Motor*>()),
+        Drive() : leftMotors(std::vector<pros::Motor*>()),
+                rightMotors(std::vector<pros::Motor*>()),
                 leftRot(nullptr),
                 rightRot(nullptr),
                 strafeRot(nullptr),
@@ -28,8 +37,8 @@ namespace drive
                 //addposition tracker and pid controllers
         }
 
-        std::vector<pros::Motor*> leftDriveMotors;
-        std::vector<pros::Motor*> rightDriveMotors;
+        std::vector<pros::Motor*> leftMotors;
+        std::vector<pros::Motor*> rightMotors;
         pros::Rotation *leftRot;
         pros::Rotation *rightRot;
         pros::Rotation *strafeRot;
@@ -40,16 +49,26 @@ namespace drive
 
     class DriveBuilder {
     public:
-        DriveBuilder& withLeftDriveMotor(pros::Motor *motor) {
-            drive.leftDriveMotors.push_back(motor);
+        DriveBuilder& withLeftMotor(pros::Motor *motor) {
+            drive.leftMotors.push_back(motor);
             return *this;
         }
 
-        DriveBuilder& withRightDriveMotor(pros::Motor *motor) {
-            drive.rightDriveMotors.push_back(motor);
+        DriveBuilder& withRightMotor(pros::Motor *motor) {
+            drive.rightMotors.push_back(motor);
             return *this;
         }
 
+        DriveBuilder& withLeftMotorV(std::vector<pros::Motor*> motors) {
+            drive.leftMotors = motors;
+            return *this;
+        }
+
+        DriveBuilder& withRightMotorV(std::vector<pros::Motor*> motors) {
+            drive.rightMotors = motors;
+            return *this;
+        }
+                
         DriveBuilder& withLeftRot(pros::Rotation *leftRot) {
             drive.leftRot = leftRot;
             return *this;
