@@ -4,11 +4,15 @@
 #include "main/main.h"
 #include "drivecontroller.h"
 
-class OpDriveController : public drive_controller::DriveController {
- public:
-    OpDriveController(drive::Drive *drive) : DriveController(drive) {}
+namespace op_drive_controller {
+    class OpDriveController : public drive_controller::DriveController {
+     public:
+        OpDriveController(drive::Drive *drive) : DriveController(drive) {}
 
- private:
-};
+
+        private:
+    };
+}
+
 
 #endif  // WISCOPROS2122_SUBSYSTEMS_DRIVE_OPDRIVECONTROLLER_H_
