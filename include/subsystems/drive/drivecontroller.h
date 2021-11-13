@@ -17,9 +17,12 @@ namespace drive_controller {
         float getStrafeSensVal();
         float getImuSensVal();
         float getLeftDistSensVal();
+        float getRightDistSensVal();
 
      private:
         float getAvgLeftSensVal();
+        float getAvgRightSensVal();
+        float getAvgStrafeSensVal();
         drive::Drive *_drive;
     };
 }

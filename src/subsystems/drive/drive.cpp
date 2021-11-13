@@ -5,11 +5,11 @@ namespace drive {
         return DriveBuilder();
     }
 
-    std::vector<pros::Motor*>* Drive::getLeftMotors() {
+    std::vector<pros::Motor*> Drive::getLeftMotors() {
         return Drive::leftMotors;
     }
 
-    std::vector<pros::Motor*>* Drive::getRightMotors() {
+    std::vector<pros::Motor*> Drive::getRightMotors() {
         return Drive::rightMotors;
     }
 

@@ -17,8 +17,9 @@ namespace drive
         friend class DriveBuilder;
         static DriveBuilder build();
 
-        std::vector<pros::Motor*>* getLeftMotors();
-        std::vector<pros::Motor*>* getRightMotors();
+        std::vector<pros::Motor*> getLeftMotors();
+        std::vector<pros::Motor*> getRightMotors();
+        std::vector<pros::Motor*> getStrafeMotors();
         pros::Rotation* getLeftRot();
         pros::Rotation* getRightRot();
         pros::Rotation* getStrafeRot();
@@ -27,13 +28,15 @@ namespace drive
         pros::Distance* getRightDistance();
 
     private:
-        Drive() : leftMotors(nullptr),
-                rightMotors(nullptr) {
+        Drive() : leftMotors(std::vector<pros::Motor*>()),
+                rightMotors(std::vector<pros::Motor*>()),
+                strafeMotors(std::vector<pros::Motor*>()) {
                 //addposition tracker and pid controllers
         }
 
-        std::vector<pros::Motor*> *leftMotors;
-        std::vector<pros::Motor*> *rightMotors;
+        std::vector<pros::Motor*> leftMotors;
+        std::vector<pros::Motor*> rightMotors;
+        std::vector<pros::Motor*> strafeMotors;
         pros::Rotation *leftRot = nullptr;
         pros::Rotation *rightRot = nullptr;
         pros::Rotation *strafeRot = nullptr;
@@ -45,22 +48,27 @@ namespace drive
     class DriveBuilder {
     public:
         DriveBuilder& withLeftMotor(pros::Motor *motor) {
-            drive.leftMotors->push_back(motor);
+            drive.leftMotors.push_back(motor);
             return *this;
         }
 
         DriveBuilder& withRightMotor(pros::Motor *motor) {
-            drive.rightMotors->push_back(motor);
+            drive.rightMotors.push_back(motor);
             return *this;
         }
 
-        DriveBuilder& withLeftMotorV(std::vector<pros::Motor*> *motors) {
+        DriveBuilder& withLeftMotorV(std::vector<pros::Motor*> motors) {
             drive.leftMotors = motors;
             return *this;
         }
 
-        DriveBuilder& withRightMotorV(std::vector<pros::Motor*> *motors) {
+        DriveBuilder& withRightMotorV(std::vector<pros::Motor*> motors) {
             drive.rightMotors = motors;
+            return *this;
+        }
+
+        DriveBuilder& withStrafeMotorV(std::vector<pros::Motor*> motors) {
+            drive.strafeMotors = motors;
             return *this;
         }
                 
