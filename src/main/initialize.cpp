@@ -24,18 +24,7 @@ void on_center_button() {
  * All other competition modes are blocked by initialize; it is recommended
  * to keep execution time for this mode under a few seconds.
  */
-void initialize() {
-    drive::Drive drive = drive::Drive::build().withLeftDriveMotor(&config::backLeftDrive)
-                                .withLeftDriveMotor(&config::middleLeftDrive)
-                                .withLeftDriveMotor(&config::backLeftDrive)
-                                .withRightDriveMotor(&config::frontRightDrive)
-                                .withRightDriveMotor(&config::middleRightDrive)
-                                .withRightDriveMotor(&config::backRightDrive)
-                                .withLeftRot(&config::leftRot)
-                                .withRightRot(&config::rightRot)
-                                .withStrafeRot(&config::strafeRot)
-                                .withImu(&config::imu);
-}
+void initialize() {}
 
 /**
  * Runs while the robot is in the disabled state of Field Management System or
