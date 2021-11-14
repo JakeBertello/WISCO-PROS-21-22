@@ -3,6 +3,7 @@
 
 #include "main.h"
 #include "misc/config.h"
-
+#include "subsystems/drive/drive.h"
+#include "subsystems/drive/opdrivecontroller.h"
 
 #endif  // WISCOPROS2122_MAIN_INITIALIZE_H_

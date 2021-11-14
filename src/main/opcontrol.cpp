@@ -1,4 +1,5 @@
 #include "main.h"
+#include "opcontrol.h"
 
 /**
  * Runs the operator control code. This function will be started in its own task
@@ -13,4 +14,11 @@
  * operator control task will be stopped. Re-enabling the robot will restart the
  * task, not resume it from where it left off.
  */
-void opcontrol() {}
+void opcontrol() {
+    pros::Controller master(pros::E_CONTROLLER_MASTER);
+    op_drive_controller::OpDriveController driveController(&master);
+    while(true) {
+        driveController.setDriveTank();
+        pros::delay(10);
+    }
+}
