@@ -13,7 +13,8 @@ namespace op_drive_controller {
         }
 
         void setDriveTank();
-        void setDriveArcadeOneJoy();
+        void setDriveArcadeOneJoyRight();
+        void setDriveArcadeOneJoyLeft();
         void setDriveArcadeTwoJoy();
 
      private:
