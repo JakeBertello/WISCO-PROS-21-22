@@ -3,14 +3,33 @@
 
 #include "main/main.h"
 #include "drivecontroller.h"
+#include "misc/config.h"
 
 namespace op_drive_controller {
     class OpDriveController : public drive_controller::DriveController {
      public:
-        OpDriveController(drive::Drive *drive) : DriveController(drive) {}
+        OpDriveController(pros::Controller *controller) : DriveController(&drive) {
+            this->controller = controller;
+        }
 
+        void setDriveTank();
+        void setDriveArcadeOneJoy();
+        void setDriveArcadeTwoJoy();
 
-        private:
+     private:
+        drive::Drive drive = drive::Drive::build()
+                                .withLeftMotor(&config::backLeftDrive)
+                                .withLeftMotor(&config::middleLeftDrive)
+                                .withLeftMotor(&config::backLeftDrive)
+                                .withRightMotor(&config::frontRightDrive)
+                                .withRightMotor(&config::middleRightDrive)
+                                .withRightMotor(&config::backRightDrive)
+                                .withLeftRot(&config::leftRot)
+                                .withRightRot(&config::rightRot)
+                                .withStrafeRot(&config::strafeRot)
+                                .withImu(&config::imu);
+                                
+        pros::Controller *controller;
     };
 }
 

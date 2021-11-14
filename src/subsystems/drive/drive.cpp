@@ -25,7 +25,7 @@ namespace drive {
         return Drive::strafeRot;
     }
 
-    pros::Imu*Drive::getImu() {
+    pros::Imu* Drive::getImu() {
         return Drive::imu;
     }
 

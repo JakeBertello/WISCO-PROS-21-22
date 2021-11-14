@@ -28,11 +28,6 @@ namespace drive
         pros::Distance* getRightDistance();
 
     private:
-        Drive() : leftMotors(std::vector<pros::Motor*>()),
-                rightMotors(std::vector<pros::Motor*>()),
-                strafeMotors(std::vector<pros::Motor*>()) {
-                //addposition tracker and pid controllers
-        }
 
         std::vector<pros::Motor*> leftMotors;
         std::vector<pros::Motor*> rightMotors;
@@ -43,6 +38,7 @@ namespace drive
         pros::Imu *imu = nullptr;
         pros::Distance *leftDistance = nullptr;
         pros::Distance *rightDistance = nullptr;
+        //addposition tracker and pid controllers
     };
 
     class DriveBuilder {
@@ -55,6 +51,10 @@ namespace drive
         DriveBuilder& withRightMotor(pros::Motor *motor) {
             drive.rightMotors.push_back(motor);
             return *this;
+        }
+
+        DriveBuilder& withStrafeMotor(pros::Motor *motor) {
+            drive.strafeMotors.push_back(motor);
         }
 
         DriveBuilder& withLeftMotorV(std::vector<pros::Motor*> motors) {

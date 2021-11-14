@@ -1,12 +1,12 @@
-#include "subsystems/drive/drivecontroller.h"
+#include "drivecontroller.h"
 
 namespace drive_controller {
     float DriveController::getLeftSensVal() {
         float val = 0.0;
-        if (_drive->getLeftRot() != nullptr) {
-            val = _drive->getLeftRot()->get_position();
+        if (drive.getLeftRot() != nullptr) {
+            val = drive.getLeftRot()->get_position();
         } else {
-            if (_drive->getLeftMotors().size() != 0) {
+            if (drive.getLeftMotors().size() != 0) {
                 val = getAvgLeftSensVal();
             }
         }
@@ -15,10 +15,10 @@ namespace drive_controller {
 
     float DriveController::getRightSensVal() {
         float val = 0.0;
-        if (_drive->getRightRot() != nullptr) {
-            val = _drive->getRightRot()->get_position();
+        if (drive.getRightRot() != nullptr) {
+            val = drive.getRightRot()->get_position();
         } else {
-            if (_drive->getRightMotors().size() != 0) {
+            if (drive.getRightMotors().size() != 0) {
                 val = getAvgRightSensVal();
             }
         }
@@ -27,10 +27,10 @@ namespace drive_controller {
 
     float DriveController::getStrafeSensVal() {
         float val = 0.0;
-        if (_drive->getStrafeRot() != nullptr) {
-            val = _drive->getStrafeRot()->get_position();
+        if (drive.getStrafeRot() != nullptr) {
+            val = drive.getStrafeRot()->get_position();
         } else {
-            if (_drive->getStrafeMotors().size() != 0) {
+            if (drive.getStrafeMotors().size() != 0) {
                 val = getAvgStrafeSensVal();
             }
         }
@@ -39,24 +39,24 @@ namespace drive_controller {
 
     float DriveController::getImuSensVal() {
         float val = 0.0;
-        if (_drive->getImu() != nullptr) {
-            val = _drive->getImu()->get_heading();
+        if (drive.getImu() != nullptr) {
+            val = drive.getImu()->get_heading();
         }
         return val;
     }
 
     float DriveController::getLeftDistSensVal() {
         float val = 0.0;
-        if (_drive->getLeftDistance() != nullptr) {
-            val = _drive->getLeftDistance()->get();
+        if (drive.getLeftDistance() != nullptr) {
+            val = drive.getLeftDistance()->get();
         }
         return val;
     }
 
     float DriveController::getRightDistSensVal() {
         float val = 0.0;
-        if (_drive->getRightDistance() != nullptr) {
-            val = _drive->getRightDistance()->get();
+        if (drive.getRightDistance() != nullptr) {
+            val = drive.getRightDistance()->get();
         }
         return val;
     }
@@ -64,30 +64,30 @@ namespace drive_controller {
     float DriveController::getAvgLeftSensVal() {
         float sum = 0.0;
 
-        for (pros::Motor* motor : _drive->getLeftMotors()) {
+        for (pros::Motor *motor : drive.getLeftMotors()) {
             sum += motor->get_position();
         }
 
-        return sum / _drive->getLeftMotors().size();
+        return sum / drive.getLeftMotors().size();
     }
 
     float DriveController::getAvgRightSensVal() {
         float sum = 0.0;
 
-        for (pros::Motor* motor : _drive->getRightMotors()) {
-            sum += motor->get_position();
+        for (pros::Motor *motor : drive.getRightMotors()) {
+            sum += motor->get_direction();
         }
 
-        return sum / _drive->getRightMotors().size();
+        return sum / drive.getRightMotors().size();
     }
 
     float DriveController::getAvgStrafeSensVal() {
         float sum = 0.0;
 
-        for (pros::Motor* motor : _drive->getStrafeMotors()) {
+        for (pros::Motor *motor : drive.getStrafeMotors()) {
             sum += motor->get_position();
         }
 
-        return sum / _drive->getStrafeMotors().size();
+        return sum / drive.getStrafeMotors().size();
     }
 }
