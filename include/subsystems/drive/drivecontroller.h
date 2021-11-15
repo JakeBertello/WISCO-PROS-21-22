@@ -8,7 +8,7 @@ namespace drive_controller {
     class DriveController {
      public:
         DriveController(drive::Drive *drive) {
-            this->drive = *drive;
+            this->drive = drive;
         }
 
      protected:
@@ -18,7 +18,7 @@ namespace drive_controller {
         float getImuSensVal();
         float getLeftDistSensVal();
         float getRightDistSensVal();
-        drive::Drive drive;
+        drive::Drive *drive;
 
      private:
         float getAvgLeftSensVal();

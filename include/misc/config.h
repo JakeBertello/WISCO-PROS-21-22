@@ -1,9 +1,11 @@
 #ifndef WISCOPROS2122_MISC_CONFIG_H_
 #define WISCOPROS2122_MISC_CONFIG_H_
 
+#include "subsystems/drive/opdrivecontroller.h"
 #include "main/main.h"
 
 namespace config {
+    extern pros::Controller master;
 
     /********************************* DRIVE_MOTORS *********************************/
     extern pros::Motor frontLeftDrive;
@@ -21,9 +23,9 @@ namespace config {
     extern pros::Distance leftDistance;
     extern pros::Distance rightDistance;
 
-    /********************************* BASS_BOOSTER_MOTORS *********************************/
-
-    /********************************* NORMAL_LIFT_MOTORS *********************************/
+    /********************************* DRIVE_CONFIG *********************************/
+    extern drive::Drive drive;
+    extern op_drive_controller::OpDriveController driveController;
 }
 
 #endif  // WISCOPROS2122_MISC_CONFIG_H_

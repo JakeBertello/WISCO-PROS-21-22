@@ -15,10 +15,10 @@
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-    pros::Controller master(pros::E_CONTROLLER_MASTER);
-    op_drive_controller::OpDriveController driveController(&master);
+    
+    
     while(true) {
-        driveController.setDriveTank();
+        config::driveController.setDriveTank();
         pros::delay(10);
     }
 }

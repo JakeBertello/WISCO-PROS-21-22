@@ -2,6 +2,8 @@
 
 namespace config {
     
+    pros::Controller master(pros::E_CONTROLLER_MASTER);
+
     /********************************* DRIVE_MOTORS *********************************/
     pros::Motor frontLeftDrive(1, pros::E_MOTOR_GEARSET_06, false, pros::E_MOTOR_ENCODER_COUNTS);
     pros::Motor middleLeftDrive(2, pros::E_MOTOR_GEARSET_06, true, pros::E_MOTOR_ENCODER_COUNTS);
@@ -17,4 +19,19 @@ namespace config {
     pros::Imu imu(10);
     pros::Distance leftDistance(11);
     pros::Distance rightDistance(12);
+
+    /********************************* DRIVE_CONFIG *********************************/
+    drive::Drive drive = drive::Drive::build()
+                                .withLeftMotor(&config::backLeftDrive)
+                                .withLeftMotor(&config::middleLeftDrive)
+                                .withLeftMotor(&config::backLeftDrive)
+                                .withRightMotor(&config::frontRightDrive)
+                                .withRightMotor(&config::middleRightDrive)
+                                .withRightMotor(&config::backRightDrive)
+                                .withLeftRot(&config::leftRot)
+                                .withRightRot(&config::rightRot)
+                                .withStrafeRot(&config::strafeRot)
+                                .withImu(&config::imu);
+
+    op_drive_controller::OpDriveController driveController(&drive, &config::master);
 }

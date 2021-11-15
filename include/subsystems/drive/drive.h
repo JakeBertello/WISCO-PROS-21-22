@@ -28,7 +28,6 @@ namespace drive
         pros::Distance* getRightDistance();
 
     private:
-
         std::vector<pros::Motor*> leftMotors;
         std::vector<pros::Motor*> rightMotors;
         std::vector<pros::Motor*> strafeMotors;
