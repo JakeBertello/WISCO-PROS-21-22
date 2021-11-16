@@ -1,14 +1,14 @@
-#ifndef WISCOPROS2122_SUBSYSTEMS_DRIVE_DRIVECONTROLLER_H_
-#define WISCOPROS2122_SUBSYSTEMS_DRIVE_DRIVECONTROLLER_H_
+#ifndef WISCOPROS2122_SUBSYSTEMS_LIFT_LIFTCONTROLLER_H_
+#define WISCOPROS2122_SUBSYSTEMS_LIFT_LIFTCONTROLLER_H_
 
 #include "main/main.h"
-#include "subsystems/drive/drive.h"
+#include "subsystems/lift/lift.h"
 
-namespace drive_controller {
-    class DriveController {
+namespace lift_controller {
+    class LiftController {
      public:
-        DriveController(drive::Drive *drive) {
-            this->drive = drive;
+        LiftController(lift::Lift *lift) {
+            this->lift = lift;
         }
 
      protected:
@@ -18,7 +18,7 @@ namespace drive_controller {
         float getImuSensVal();
         float getLeftDistSensVal();
         float getRightDistSensVal();
-        drive::Drive *drive;
+        lift::Lift *lift;
 
      private:
         float getAvgLeftSensVal();
@@ -28,4 +28,4 @@ namespace drive_controller {
     };
 }
 
-#endif  // WISCOPROS2122_SUBSYSTEMS_DRIVE_DRIVECONTROLLER_H_
+#endif  // WISCOPROS2122_SUBSYSTEMS_LIFT_LIFTCONTROLLER_H_
