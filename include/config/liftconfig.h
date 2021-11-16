@@ -17,10 +17,10 @@ namespace lift_config {
 
 
     /********************************* LIFT_CONFIG *********************************/
-    extern lift::Lift bassBooster;
+    extern subsystem::SubsystemBuilder<lift::Lift> bassBooster;
     extern op_lift_controller::OpLiftController bassBoosterController;
 
-    extern lift::Lift normalLift;
+    subsystem::SubsystemBuilder<lift::Lift> normalLift;
     extern op_lift_controller::OpLiftController normalLiftController;
 
     extern void configureLifts();
