@@ -1,6 +1,5 @@
 #include "main.h"
 #include "opcontrol.h"
-#include "misc/controllerinputs.h"
 
 /**
  * Runs the operator control code. This function will be started in its own task
@@ -17,9 +16,10 @@
  */
 void opcontrol() {
     while(true) {
-        config::driveController.setDriveTank();
-        config::bassBoosterController.setLiftUpAndDownButton(B, DOWN);
-        config::normalLiftController.setLiftUpAndDownButton(R1, R2);
+        drive_config::driveController.setDriveTank();
+        lift_config::bassBoosterController.setLiftUpAndDownButtons(B, DOWN);
+        lift_config::normalLiftController.setLiftUpAndDownButtons(R1, R2);
+        intake_config::grabberController.setIntakeUpAndDownButtons(L1, L2);
         pros::delay(10);
     }
 }

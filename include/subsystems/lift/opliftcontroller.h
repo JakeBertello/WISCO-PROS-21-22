@@ -20,7 +20,7 @@ namespace op_lift_controller {
             this->controller = controller;
         }
 
-        void setLiftUpAndDownButton(controller_input up, controller_input down);
+        void setLiftUpAndDownButtons(controller_input up, controller_input down);
         void setLiftUpAndDownJoy(controller_input joy);
 
      private:
