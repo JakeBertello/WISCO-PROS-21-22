@@ -12,4 +12,7 @@ namespace intake_config {
 
     op_intake_controller::OpIntakeController grabberController(&grabber, &config::master);
     
+    void configureIntakes() {
+        grabberMotor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    }
 }

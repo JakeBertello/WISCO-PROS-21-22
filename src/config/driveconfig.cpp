@@ -32,4 +32,13 @@ namespace drive_config {
                                 .withImu(&drive_config::imu);
 
     op_drive_controller::OpDriveController driveController(&drive, &config::master);
+
+    void configureDrives() {
+        frontLeftDrive.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+        middleLeftDrive.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+        backLeftDrive.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+        frontRightDrive.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+        middleRightDrive.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+        backRightDrive.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+    }
 }

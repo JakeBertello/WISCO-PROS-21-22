@@ -5,7 +5,7 @@
 
 namespace drive
 {
-    enum PIDControllers {  // ames for different pid controllers
+    enum PIDControllers {  // names for different pid controllers
         DEFAULT,
         SWEEP
     };

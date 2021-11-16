@@ -15,6 +15,8 @@ namespace intake_config {
     extern intake::Intake grabber;
 
     extern op_intake_controller::OpIntakeController grabberController;
+
+    extern void configureIntakes();
 }
 
 #endif // WISCOPROS2122_CONFIG_INTAKECONFIG_H_

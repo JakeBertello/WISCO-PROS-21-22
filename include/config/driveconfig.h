@@ -27,6 +27,8 @@ namespace drive_config {
     /********************************* DRIVE_CONFIG *********************************/
     extern drive::Drive drive;
     extern op_drive_controller::OpDriveController driveController;
+
+    extern void configureDrives();
 }
 
 #endif  // WISCOPROS2122_CONFIG_DRIVECONFIG_H_

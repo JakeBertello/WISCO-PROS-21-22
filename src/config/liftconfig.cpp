@@ -23,4 +23,12 @@ namespace lift_config {
                                                 .withRightMotor(&normalLiftRight);
 
     op_lift_controller::OpLiftController normalLiftController(&normalLift, &config::master);
+
+    void configureLifts() {
+        bassBoosterLeft.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+        bassBoosterRight.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+
+        normalLiftLeft.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+        normalLiftRight.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    }
 }

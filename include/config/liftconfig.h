@@ -22,6 +22,8 @@ namespace lift_config {
 
     extern lift::Lift normalLift;
     extern op_lift_controller::OpLiftController normalLiftController;
+
+    extern void configureLifts();
 }
 
 #endif  // WISCOPROS2122_CONFIG_LIFTCONFIG_H_
