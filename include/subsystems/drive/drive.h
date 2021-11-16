@@ -54,6 +54,7 @@ namespace drive
 
         DriveBuilder& withStrafeMotor(pros::Motor *motor) {
             drive.strafeMotors.push_back(motor);
+            return *this;
         }
 
         DriveBuilder& withLeftMotorV(std::vector<pros::Motor*> motors) {
