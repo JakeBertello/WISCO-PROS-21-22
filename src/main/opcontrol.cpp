@@ -1,5 +1,6 @@
 #include "main.h"
 #include "opcontrol.h"
+#include "misc/controllerinputs.h"
 
 /**
  * Runs the operator control code. This function will be started in its own task
@@ -15,10 +16,10 @@
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-    
-    
     while(true) {
         config::driveController.setDriveTank();
+        config::bassBoosterController.setLiftUpAndDownButton(B, DOWN);
+        config::normalLiftController.setLiftUpAndDownButton(R1, R2);
         pros::delay(10);
     }
 }

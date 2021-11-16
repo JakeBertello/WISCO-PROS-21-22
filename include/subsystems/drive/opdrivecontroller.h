@@ -17,8 +17,6 @@ namespace op_drive_controller {
         void setDriveArcadeTwoJoy();
 
      private:
-        
-                                
         pros::Controller *controller;
     };
 }
