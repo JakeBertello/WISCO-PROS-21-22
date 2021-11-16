@@ -1,12 +1,12 @@
-#ifndef WISCOPROS2122_MISC_CONFIG_H_
-#define WISCOPROS2122_MISC_CONFIG_H_
+#ifndef WISCOPROS2122_CONFIG_DRIVECONFIG_H_
+#define WISCOPROS2122_CONFIG_DRIVECONFIG_H_
 
 #include "subsystems/drive/opdrivecontroller.h"
-#include "subsystems/lift/opliftcontroller.h"
+#include "config/config.h"
 #include "main/main.h"
 
-namespace config {
-    extern pros::Controller master;
+
+namespace drive_config {
 
     /********************************* DRIVE_MOTORS *********************************/
     extern pros::Motor frontLeftDrive;
@@ -27,23 +27,6 @@ namespace config {
     /********************************* DRIVE_CONFIG *********************************/
     extern drive::Drive drive;
     extern op_drive_controller::OpDriveController driveController;
-
-    /********************************* LIFT_MOTORS *********************************/
-    extern pros::Motor bassBoosterLeft;
-    extern pros::Motor bassBoosterRight;
-
-    extern pros::Motor normalLiftLeft;
-    extern pros::Motor normalLiftRight;
-
-    /********************************* LIFT_SENSORS *********************************/
-
-
-    /********************************* LIFT_CONFIG *********************************/
-    extern lift::Lift bassBooster;
-    extern op_lift_controller::OpLiftController bassBoosterController;
-
-    extern lift::Lift normalLift;
-    extern op_lift_controller::OpLiftController normalLiftController;
 }
 
-#endif  // WISCOPROS2122_MISC_CONFIG_H_
+#endif  // WISCOPROS2122_CONFIG_DRIVECONFIG_H_
