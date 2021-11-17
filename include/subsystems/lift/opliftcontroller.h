@@ -1,6 +1,7 @@
 #ifndef WISCOPROS2122_SUBSYSTEMS_LIFT_OPLIFTCONTROLLER_H_
 #define WISCOPROS2122_SUBSYSTEMS_LIFT_OPLIFTCONTROLLER_H_
 
+#include "subsystems/subsystem/subsystemcontroller.h"
 #include "main/main.h"
 #include "liftcontroller.h"
 #include "misc/controllerinputs.h"
@@ -14,9 +15,9 @@ namespace op_lift_controller {
         BOTH
     };
 
-    class OpLiftController : public lift_controller::LiftController {
+    class OpLiftController : public subsystem_controller::SubsystemController<OpLiftController> {
      public:
-        OpLiftController(lift::Lift *lift, pros::Controller *controller) : LiftController(lift) {
+        OpLiftController(subsystem::Subsystem<lift::Lift> *lift, pros::Controller *controller) : SubsystemController<OpLiftController>(lift) {
             this->controller = controller;
         }
 

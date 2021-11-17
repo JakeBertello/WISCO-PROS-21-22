@@ -13,13 +13,13 @@ namespace lift_config {
 
 
     /********************************* LIFT_CONFIG *********************************/
-    lift::Lift bassBooster = lift::Lift::build().withLeftMotor(&bassBoosterLeft)
+    subsystem::Subsystem<lift::Lift> bassBooster = lift::Lift::build().withLeftMotor(&bassBoosterLeft)
                                                 .withRightMotor(&bassBoosterRight);
 
     op_lift_controller::OpLiftController bassBoosterController(&bassBooster, &config::master);                                            
 
 
-    lift::Lift normalLift = lift::Lift::build().withLeftMotor(&normalLiftLeft)
+    subsystem::Subsystem<lift::Lift> normalLift = lift::Lift::build().withLeftMotor(&normalLiftLeft)
                                                 .withRightMotor(&normalLiftRight);
 
     op_lift_controller::OpLiftController normalLiftController(&normalLift, &config::master);

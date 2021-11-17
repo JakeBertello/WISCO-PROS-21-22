@@ -12,7 +12,9 @@ namespace lift {
     class LiftBuilder;  // Forward declaration
 
     class Lift : public subsystem::Subsystem<Lift> {
-        Lift() : subsystem::Subsystem<Lift>(this) {}
+        Lift() : subsystem::Subsystem<Lift>() {
+
+        }
     };
 }
 

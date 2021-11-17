@@ -17,8 +17,8 @@
 void opcontrol() {
     while(true) {
         drive_config::driveController.setDriveTank();
-        lift_config::bassBoosterController.setLiftUpAndDownButtons(B, DOWN);
-        lift_config::normalLiftController.setLiftUpAndDownButtons(R1, R2);
+        //lift_config::bassBoosterController.setLiftUpAndDownButtons(B, DOWN);
+        //lift_config::normalLiftController.setLiftUpAndDownButtons(R1, R2);
         intake_config::grabberController.setIntakeUpAndDownButtons(L1, L2);
         pros::delay(10);
     }

@@ -16,10 +16,6 @@ namespace subsystem {
         friend class SubsystemBuilder<T>;
         static SubsystemBuilder<T> build();
 
-        Subsystem(T *inSubsystem) {
-            this->inSubsystem = inSubsystem;
-        }
-
         std::vector<pros::Motor*> getLeftMotors();
         std::vector<pros::Motor*> getRightMotors();
         pros::Rotation* getLeftRot();
@@ -28,52 +24,75 @@ namespace subsystem {
      private:
         std::vector<pros::Motor*> leftMotors;
         std::vector<pros::Motor*> rightMotors;
-        std::vector<pros::Motor*> strafeMotors;
         pros::Rotation *leftRot = nullptr;
         pros::Rotation *rightRot = nullptr;
         //addposition tracker and pid controllers
-        T *inSubsystem;
     };
+
+    template<class T>
+    SubsystemBuilder<T> Subsystem<T>::build() {
+        return SubsystemBuilder<T>();
+    }
+
+    template<class T>
+    std::vector<pros::Motor*> Subsystem<T>::getLeftMotors() {
+        return Subsystem::leftMotors;
+    }
+
+    template<class T>
+    std::vector<pros::Motor*> Subsystem<T>::getRightMotors() {
+        return Subsystem::rightMotors;
+    }
+
+    template<class T>
+    pros::Rotation* Subsystem<T>::getLeftRot() {
+        return Subsystem::leftRot;
+    }
+
+    template<class T>
+    pros::Rotation* Subsystem<T>::getRightRot() {
+        return Subsystem::rightRot;
+    }
 
     template <class T>
     class SubsystemBuilder {
      public:
-        SubsystemBuilder& withLeftMotor(pros::Motor *motor) {
-            sys.leftMotors.push_back(motor);
+        SubsystemBuilder<T>& withLeftMotor(pros::Motor *motor) {
+            _subsystem.leftMotors.push_back(motor);
             return *this;
         }
 
-        SubsystemBuilder& withRightMotor(pros::Motor *motor) {
-            sys.rightMotors.push_back(motor);
+        SubsystemBuilder<T>& withRightMotor(pros::Motor *motor) {
+            _subsystem.rightMotors.push_back(motor);
             return *this;
         }
 
-        SubsystemBuilder& withLeftMotorV(std::vector<pros::Motor*> motors) {
-            sys.leftMotors = motors;
+        SubsystemBuilder<T>& withLeftMotorV(std::vector<pros::Motor*> motors) {
+            _subsystem.leftMotors = motors;
             return *this;
         }
 
-        SubsystemBuilder& withRightMotorV(std::vector<pros::Motor*> motors) {
-            sys.rightMotors = motors;
+        SubsystemBuilder<T>& withRightMotorV(std::vector<pros::Motor*> motors) {
+            _subsystem.rightMotors = motors;
             return *this;
         }
                 
-        SubsystemBuilder& withLeftRot(pros::Rotation *leftRot) {
-            sys.leftRot = leftRot;
+        SubsystemBuilder<T>& withLeftRot(pros::Rotation *leftRot) {
+            _subsystem.leftRot = leftRot;
             return *this;
         }
 
-        SubsystemBuilder& withRightRot(pros::Rotation *rightRot) {
-            sys.rightRot = rightRot;
+        SubsystemBuilder<T>& withRightRot(pros::Rotation *rightRot) {
+            _subsystem.rightRot = rightRot;
             return *this;
         }
 
-        operator Subsystem<drive::Drive>&&() {
-            return std::move(sys);
+        operator Subsystem<T>&&() {
+            return std::move(_subsystem);
         }
 
      private:
-        Subsystem<T> sys = *inSubsystem;
+        T _subsystem;
     };
 }
 

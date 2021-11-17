@@ -16,23 +16,23 @@ namespace op_lift_controller {
         motors_on_side side = hasMotors();
         switch (side) {
             case BOTH:
-                for (pros::Motor *motor : lift->getLeftMotors()) {
+                for (pros::Motor *motor : subsystem->getLeftMotors()) {
                     *motor = controller->get_analog(inputConverter.convertJoy(joy));
                 }
 
-                for (pros::Motor *motor : lift->getRightMotors()) {
+                for (pros::Motor *motor : subsystem->getRightMotors()) {
                     *motor = controller->get_analog(inputConverter.convertJoy(joy));
                 }
                 break;
             
             case LEFT:
-                for (pros::Motor *motor : lift->getLeftMotors()) {
+                for (pros::Motor *motor : subsystem->getLeftMotors()) {
                     *motor = controller->get_analog(inputConverter.convertJoy(joy));
                 }
                 break;
             
             case RIGHT:
-                for (pros::Motor *motor : lift->getRightMotors()) {
+                for (pros::Motor *motor : subsystem->getRightMotors()) {
                     *motor = controller->get_analog(inputConverter.convertJoy(joy));
                 }
                 break;
@@ -43,23 +43,23 @@ namespace op_lift_controller {
         motors_on_side side = hasMotors();
         switch (side) {
             case BOTH:
-                for (pros::Motor *motor : lift->getLeftMotors()) {
+                for (pros::Motor *motor : subsystem->getLeftMotors()) {
                     *motor = voltage;
                 }
 
-                for (pros::Motor *motor : lift->getRightMotors()) {
+                for (pros::Motor *motor : subsystem->getRightMotors()) {
                     *motor = voltage;
                 }
                 break;
             
             case LEFT:
-                for (pros::Motor *motor : lift->getLeftMotors()) {
+                for (pros::Motor *motor : subsystem->getLeftMotors()) {
                     *motor = voltage;
                 }
                 break;
             
             case RIGHT:
-                for (pros::Motor *motor : lift->getRightMotors()) {
+                for (pros::Motor *motor : subsystem->getRightMotors()) {
                     *motor = voltage;
                 }
                 break;
@@ -68,11 +68,11 @@ namespace op_lift_controller {
 
     motors_on_side OpLiftController::hasMotors() {
         motors_on_side side;
-        if (lift->getLeftMotors().size() > 0 && lift->getRightMotors().size() > 0) {
+        if (subsystem->getLeftMotors().size() > 0 && subsystem->getRightMotors().size() > 0) {
             side = BOTH;
-        } else if (lift->getLeftMotors().size() > 0) {
+        } else if (subsystem->getLeftMotors().size() > 0) {
             side = LEFT;
-        } else if (lift->getRightMotors().size() > 0) {
+        } else if (subsystem->getRightMotors().size() > 0) {
             side = RIGHT;
         }
         return side;
