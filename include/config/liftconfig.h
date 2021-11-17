@@ -13,6 +13,9 @@ namespace lift_config {
     extern pros::Motor normalLiftLeft;
     extern pros::Motor normalLiftRight;
 
+    extern pros::Motor leftHooker;
+    extern pros::Motor rightHooker;
+
     /********************************* LIFT_SENSORS *********************************/
 
 
@@ -22,6 +25,9 @@ namespace lift_config {
 
     extern lift::Lift normalLift;
     extern op_lift_controller::OpLiftController normalLiftController;
+
+    extern lift::Lift hooker;
+    extern op_lift_controller::OpLiftController hookerController;
 
     extern void configureLifts();
 }
