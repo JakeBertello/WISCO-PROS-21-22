@@ -19,7 +19,7 @@ void opcontrol() {
         lift_config::bassBoosterController.setLiftUpAndDownButtons(B, DOWN);
         lift_config::normalLiftController.setLiftUpAndDownButtons(R1, R2);
         lift_config::hookerController.setLiftUpAndDownButtons(LEFT, A);
-        intake_config::grabberController.setIntakeUpAndDownButtons(L2, L1);
+        intake_config::grabberController.setIntakeUpAndDownButtons(L1, L2);
         pros::delay(10);
     }
 }

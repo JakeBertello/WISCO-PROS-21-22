@@ -8,18 +8,18 @@ namespace drive_config {
     pros::Motor backLeftDrive(13, pros::E_MOTOR_GEARSET_06, true, pros::E_MOTOR_ENCODER_COUNTS);
     pros::Motor frontRightDrive(1, pros::E_MOTOR_GEARSET_06, false, pros::E_MOTOR_ENCODER_COUNTS);
     pros::Motor middleRightDrive(2, pros::E_MOTOR_GEARSET_06, true, pros::E_MOTOR_ENCODER_COUNTS);
-    pros::Motor backRightDrive(4, pros::E_MOTOR_GEARSET_06, false, pros::E_MOTOR_ENCODER_COUNTS);
+    pros::Motor backRightDrive(3, pros::E_MOTOR_GEARSET_06, false, pros::E_MOTOR_ENCODER_COUNTS);
 
     /********************************* DRIVE_SENSORS *********************************/
-    pros::Rotation leftRot(18);
-    pros::Rotation rightRot(8);
+    pros::Rotation leftRot(14);
+    pros::Rotation rightRot(4);
     pros::Rotation strafeRot(5);
     pros::Imu imu(17);
-    pros::Distance leftDistance(11);
-    pros::Distance rightDistance(12);
+    pros::Distance leftDistance(8);
+    pros::Distance rightDistance(9);
 
     /********************************* DRIVE_CONFIG *********************************/
-    drive::Drive drive = drive::Drive::build()
+    drive::Drive drive = drive::Drive::build().withLeftMotor(&drive_config::frontLeftDrive)
                                 .withLeftMotor(&drive_config::backLeftDrive)
                                 .withLeftMotor(&drive_config::middleLeftDrive)
                                 .withLeftMotor(&drive_config::backLeftDrive)
