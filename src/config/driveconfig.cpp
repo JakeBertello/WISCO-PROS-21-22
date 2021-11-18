@@ -19,7 +19,7 @@ namespace drive_config {
     pros::Distance rightDistance(12);
 
     /********************************* DRIVE_CONFIG *********************************/
-    drive::Drive drive = drive::Drive::build()
+    drive::Drive drive = drive::Drive::build().withLeftMotor(&drive_config::frontLeftDrive)
                                 .withLeftMotor(&drive_config::backLeftDrive)
                                 .withLeftMotor(&drive_config::middleLeftDrive)
                                 .withLeftMotor(&drive_config::backLeftDrive)
