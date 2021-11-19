@@ -2,57 +2,86 @@
 #define WISCOPROS2122_POSITIONTRACKER_POSITIONTRACKER_H_
 
 #include "main/main.h"
+#include "positiontracker/positiontrackerconfig.h"
 
 namespace position_tracker {
     class PositionTracker {
-        float leftEncWheelD = DEFAULT_ENC_WHEEL_D;
-        float rightEncWheelD = DEFAULT_ENC_WHEEL_D;
-        float strafeEncWheelD = DEFAULT_ENC_WHEEL_D;
+     public: 
+        PositionTracker() {
+            encTicksPerRotation = position_tracker_config::DEFAULT_ENC_TICKS_PER_ROTATION;
 
-        float currLeftEnc = 0;
-        float currRightEnc = 0;
-        float currStrafeEnc = 0;
+            leftEncWheelD = position_tracker_config::DEFAULT_ENC_WHEEL_D;
+            rightEncWheelD = position_tracker_config::DEFAULT_ENC_WHEEL_D;
+            strafeEncWheelD = position_tracker_config::DEFAULT_ENC_WHEEL_D;
 
-        float prevLeftEnc = 0;
-        float prevRightEnc = 0;
-        float prevStrafeEnc = 0;
+            leftEncWheelDFromC = position_tracker_config::LEFT_ENC_DIST_FROM_C;
+            rightEncWheelDFromC = position_tracker_config::RIGHT_ENC_DIST_FROM_C;
+            strafeEncWheelDFromC = position_tracker_config::STRAFE_ENC_DIST_FROM_C;
 
-        float globLeftEnc = 0;
-        float globRightEnc = 0;
-        float globStrafeEnc = 0;
+            currLeftEnc = 0;
+            currRightEnc = 0;
+            currStrafeEnc = 0;
+
+            prevLeftEnc = 0;
+            prevRightEnc = 0;
+            prevStrafeEnc = 0;
+
+            globLeftEnc = 0;
+            globRightEnc = 0;
+            globStrafeEnc = 0;
+
+            deltaL = 0;
+            deltaR = 0;
+            deltaS = 0;
+
+            deltaA = 0;
+            deltaX = 0;
+            deltaY = 0;
+
+            currX = 0;
+            currY = 0;
+            currA = 0;
+
+            distTraveled = 0;
+            distTraveledStrafe = 0;
+        }
+
+        float encTicksPerRotation;
         
-        float deltaL = 0;
-        float deltaR = 0;
-        float deltaS = 0;
+        float leftEncWheelD;
+        float rightEncWheelD;
+        float strafeEncWheelD;
 
-        float deltaA = 0;
-        float deltaX = 0;
-        float deltaY = 0;
+        float leftEncWheelDFromC;
+        float rightEncWheelDFromC;
+        float strafeEncWheelDFromC;
 
-        float currX = 0;
-        float currY = 0;
-        float currA = 0;
+        float currLeftEnc;
+        float currRightEnc;
+        float currStrafeEnc;
 
-        float distTraveled = 0;
-        float distTraveledStrafe = 0;
+        float prevLeftEnc;
+        float prevRightEnc;
+        float prevStrafeEnc;
 
-        // bool positionTrackerFirstRun = true;
+        float globLeftEnc;
+        float globRightEnc;
+        float globStrafeEnc;
 
-    public:
-        void reset();
+        float deltaL;
+        float deltaR;
+        float deltaS;
 
-        float getCurrLeftEnc();
-        float getCurrRightEnc();
-        float getCurrStrafeEnc();
+        float deltaA;
+        float deltaX;
+        float deltaY;
 
-        float getCurrX();
-        float getCurrY();
-        float getCurrA();
+        float currX;
+        float currY;
+        float currA;
 
-
-    private: 
-        float distWheelMoved(float ticks, float wheelD, float ticksPerRotation);
-
+        float distTraveled;
+        float distTraveledStrafe;
     };
 }
 

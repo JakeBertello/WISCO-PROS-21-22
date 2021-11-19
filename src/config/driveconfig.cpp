@@ -33,6 +33,10 @@ namespace drive_config {
 
     op_drive_controller::OpDriveController driveController(&drive, &config::master);
 
+    position_tracker::PositionTracker positionTracker;
+    
+    position_tracker_controller::PositionTrackerController positionTrackerController(&positionTracker, &drive);
+
     void configureDrives() {
         frontLeftDrive.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
         middleLeftDrive.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);

@@ -20,6 +20,10 @@ void opcontrol() {
         lift_config::normalLiftController.setLiftUpAndDownButtons(R1, R2);
         lift_config::hookerController.setLiftUpAndDownButtons(LEFT, A);
         intake_config::grabberController.setIntakeUpAndDownButtons(L1, L2);
+        drive_config::positionTrackerController.updatePosition();
+        pros::lcd::print(0, "X = %8.4f", drive_config::positionTracker.currX);
+        pros::lcd::print(1, "X = %8.4f", drive_config::positionTracker.currY);
+        pros::lcd::print(2, "X = %8.4f", drive_config::positionTracker.currA);
         pros::delay(10);
     }
 }
