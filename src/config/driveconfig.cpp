@@ -8,15 +8,15 @@ namespace drive_config {
     pros::Motor backLeftDrive(13, pros::E_MOTOR_GEARSET_06, true, pros::E_MOTOR_ENCODER_COUNTS);
     pros::Motor frontRightDrive(1, pros::E_MOTOR_GEARSET_06, false, pros::E_MOTOR_ENCODER_COUNTS);
     pros::Motor middleRightDrive(2, pros::E_MOTOR_GEARSET_06, true, pros::E_MOTOR_ENCODER_COUNTS);
-    pros::Motor backRightDrive(4, pros::E_MOTOR_GEARSET_06, false, pros::E_MOTOR_ENCODER_COUNTS);
+    pros::Motor backRightDrive(3, pros::E_MOTOR_GEARSET_06, false, pros::E_MOTOR_ENCODER_COUNTS);
 
     /********************************* DRIVE_SENSORS *********************************/
-    pros::Rotation leftRot(18);
-    pros::Rotation rightRot(8);
+    pros::Rotation leftRot(14);
+    pros::Rotation rightRot(4);
     pros::Rotation strafeRot(5);
     pros::Imu imu(17);
-    pros::Distance leftDistance(11);
-    pros::Distance rightDistance(12);
+    pros::Distance leftDistance(8);
+    pros::Distance rightDistance(9);
 
     /********************************* DRIVE_CONFIG *********************************/
 
@@ -37,6 +37,8 @@ namespace drive_config {
                                 .withTurnLongPidController(&turnLongPIDController);
 
     op_drive_controller::OpDriveController driveController(&drive, &config::master);
+
+    auton_drive_controller::AutonDriveController autonDriveController(&drive, &config::master);
 
     void configureDrives() {
         frontLeftDrive.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);

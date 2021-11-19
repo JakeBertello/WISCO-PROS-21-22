@@ -11,13 +11,13 @@ namespace drive_controller {
             this->drive = drive;
         }
 
-     protected:
         float getLeftSensVal();
         float getRightSensVal();
         float getStrafeSensVal();
         float getImuSensVal();
         float getLeftDistSensVal();
         float getRightDistSensVal();
+        void tankStraightDrive(float left, float right);
         drive::Drive *drive;
 
      private:

@@ -1,6 +1,16 @@
 #include "drivecontroller.h"
 
 namespace drive_controller {
+
+    void DriveController::tankStraightDrive(float left, float right) {
+        for (pros::Motor *motor : DriveController::drive->getLeftMotors()) {
+            *motor = left;
+        }
+
+        for (pros::Motor *motor : DriveController::drive->getRightMotors()) {
+            *motor = right;
+        }
+    }
     float DriveController::getLeftSensVal() {
         float val = 0.0;
         if (drive->getLeftRot() != nullptr) {

@@ -13,8 +13,7 @@ namespace pid_controller {
 
         float setPID(float target, float currVal);
         void resetPID();
-    
-     private:
+
         pid::PID *pid;
     };
 }
