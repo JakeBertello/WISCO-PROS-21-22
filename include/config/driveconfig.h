@@ -2,6 +2,7 @@
 #define WISCOPROS2122_CONFIG_DRIVECONFIG_H_
 
 #include "subsystems/drive/opdrivecontroller.h"
+#include "pid/pidcontroller.h"
 #include "config/config.h"
 #include "main/main.h"
 
@@ -27,6 +28,9 @@ namespace drive_config {
     /********************************* DRIVE_CONFIG *********************************/
     extern drive::Drive drive;
     extern op_drive_controller::OpDriveController driveController;
+
+    extern pid::PID turnLongPID;
+    extern pid_controller::PIDController turnLongPIDController;
 
     extern void configureDrives();
 }

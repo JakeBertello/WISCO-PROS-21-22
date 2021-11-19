@@ -19,6 +19,10 @@ namespace drive_config {
     pros::Distance rightDistance(12);
 
     /********************************* DRIVE_CONFIG *********************************/
+
+    pid::PID turnLongPID(1.5, 1, 0.02, 0, 254, -1000, 1000);
+    pid_controller::PIDController turnLongPIDController(&turnLongPID);
+
     drive::Drive drive = drive::Drive::build().withLeftMotor(&drive_config::frontLeftDrive)
                                 .withLeftMotor(&drive_config::backLeftDrive)
                                 .withLeftMotor(&drive_config::middleLeftDrive)
@@ -29,7 +33,8 @@ namespace drive_config {
                                 .withLeftRot(&drive_config::leftRot)
                                 .withRightRot(&drive_config::rightRot)
                                 .withStrafeRot(&drive_config::strafeRot)
-                                .withImu(&drive_config::imu);
+                                .withImu(&drive_config::imu)
+                                .withTurnLongPidController(&turnLongPIDController);
 
     op_drive_controller::OpDriveController driveController(&drive, &config::master);
 
