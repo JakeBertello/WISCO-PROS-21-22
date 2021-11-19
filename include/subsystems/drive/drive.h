@@ -2,6 +2,7 @@
 #define WISCOPROS2122_SUBSYSTEMS_DRIVE_DRIVE_H_
 
 #include "main/main.h"
+#include "pid/pidcontroller.h"
 
 namespace drive
 {
@@ -26,6 +27,9 @@ namespace drive
         pros::Imu* getImu();
         pros::Distance* getLeftDistance();
         pros::Distance* getRightDistance();
+        pid_controller::PIDController* getDriveStraightPidController();
+        pid_controller::PIDController* getTurnShortPidController();
+        pid_controller::PIDController* getTurnLongPidController();
 
     private:
         std::vector<pros::Motor*> leftMotors;
@@ -37,6 +41,9 @@ namespace drive
         pros::Imu *imu = nullptr;
         pros::Distance *leftDistance = nullptr;
         pros::Distance *rightDistance = nullptr;
+        pid_controller::PIDController *driveStraightPidController = nullptr;
+        pid_controller::PIDController *turnShortPidController = nullptr;
+        pid_controller::PIDController *turnLongPidController = nullptr;
         //addposition tracker and pid controllers
     };
 
@@ -99,6 +106,21 @@ namespace drive
 
         DriveBuilder& withRightDistance(pros::Distance *rightDistance) {
             drive.rightDistance = rightDistance;
+            return *this;
+        }
+
+        DriveBuilder& withDriveStraightPidController(pid_controller::PIDController *driveStraightPidController) {
+            drive.driveStraightPidController = driveStraightPidController;
+            return *this;
+        }
+
+        DriveBuilder& withTurnShortPidController(pid_controller::PIDController *turnShortPidController) {
+            drive.turnShortPidController = turnShortPidController;
+            return *this;
+        }
+
+        DriveBuilder& withTurnLongPidController(pid_controller::PIDController *turnLongPidController) {
+            drive.turnLongPidController = turnLongPidController;
             return *this;
         }
 

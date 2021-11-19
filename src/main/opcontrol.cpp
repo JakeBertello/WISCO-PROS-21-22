@@ -14,6 +14,7 @@
  * task, not resume it from where it left off.
  */
 void opcontrol() {
+    drive_config::autonDriveController.turnInertPID(90);
     while(true) {
         drive_config::driveController.setDriveTank();
         lift_config::bassBoosterController.setLiftUpAndDownButtons(B, DOWN);

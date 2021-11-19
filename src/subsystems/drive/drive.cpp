@@ -36,4 +36,16 @@ namespace drive {
     pros::Distance* Drive::getRightDistance() {
         return Drive::rightDistance;
     }
+
+    pid_controller::PIDController* Drive::getDriveStraightPidController() {
+        return Drive::driveStraightPidController;
+    }
+
+    pid_controller::PIDController* Drive::getTurnShortPidController() {
+        return Drive::turnShortPidController;
+    }
+
+    pid_controller::PIDController* Drive::getTurnLongPidController() {
+        return Drive::turnLongPidController;
+    }
 }
