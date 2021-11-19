@@ -11,8 +11,8 @@ namespace drive_config {
     pros::Motor backRightDrive(4, pros::E_MOTOR_GEARSET_06, false, pros::E_MOTOR_ENCODER_COUNTS);
 
     /********************************* DRIVE_SENSORS *********************************/
-    pros::Rotation leftRot(18);
-    pros::Rotation rightRot(8);
+    pros::Rotation leftRot(14);
+    pros::Rotation rightRot(4);
     pros::Rotation strafeRot(5);
     pros::Imu imu(17);
     pros::Distance leftDistance(11);
@@ -38,6 +38,8 @@ namespace drive_config {
     position_tracker_controller::PositionTrackerController positionTrackerController(&positionTracker, &drive);
 
     void configureDrives() {
+        rightRot.reverse();
+        driveController.resetDriveSens();
         frontLeftDrive.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
         middleLeftDrive.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
         backLeftDrive.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);

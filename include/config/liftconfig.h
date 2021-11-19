@@ -10,8 +10,8 @@ namespace lift_config {
     extern pros::Motor bassBoosterLeft;
     extern pros::Motor bassBoosterRight;
 
-    extern pros::Motor normalLiftLeft;
-    extern pros::Motor normalLiftRight;
+    extern pros::Motor updogLeft;
+    extern pros::Motor updogRight;
 
     extern pros::Motor leftHooker;
     extern pros::Motor rightHooker;
@@ -23,8 +23,8 @@ namespace lift_config {
     extern lift::Lift bassBooster;
     extern op_lift_controller::OpLiftController bassBoosterController;
 
-    extern lift::Lift normalLift;
-    extern op_lift_controller::OpLiftController normalLiftController;
+    extern lift::Lift updog;
+    extern op_lift_controller::OpLiftController updogController;
 
     extern lift::Lift hooker;
     extern op_lift_controller::OpLiftController hookerController;

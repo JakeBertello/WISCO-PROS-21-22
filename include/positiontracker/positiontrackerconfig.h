@@ -6,9 +6,9 @@
 namespace position_tracker_config {
     const float DEFAULT_ENC_WHEEL_D = 2.75;
     const float DEFAULT_ENC_TICKS_PER_ROTATION = 36000;
-    const float LEFT_ENC_DIST_FROM_C = 6.09;
-    const float RIGHT_ENC_DIST_FROM_C = 6.09;
-    const float STRAFE_ENC_DIST_FROM_C = 4.75;
+    const float LEFT_ENC_DIST_FROM_C = 6;
+    const float RIGHT_ENC_DIST_FROM_C = 6;
+    const float STRAFE_ENC_DIST_FROM_C = -1.25;
 }
 
 #endif  // WISCOPROS2122_POSITIONTRACKER_POSITIONTRACKERCONFIG_H_

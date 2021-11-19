@@ -3,7 +3,7 @@
 namespace position_tracker_controller {
     void PositionTrackerController::updatePosition() {
         positionTracker->currLeftEnc = drive->getLeftRot()->get_position();
-        positionTracker->currRightEnc = drive->getLeftRot()->get_position();
+        positionTracker->currRightEnc = drive->getRightRot()->get_position();
         positionTracker->currStrafeEnc = drive->getStrafeRot()->get_position();
 
         float deltaLEnc = positionTracker->currLeftEnc - positionTracker->prevLeftEnc;
@@ -27,8 +27,7 @@ namespace position_tracker_controller {
         //     positionTrackerFirstRun = false;
         //     return;
         // }
-        positionTracker->deltaA = (positionTracker->deltaL - positionTracker->deltaR) / 
-        (positionTracker->leftEncWheelDFromC + positionTracker->rightEncWheelDFromC);
+        positionTracker->deltaA = (positionTracker->deltaL - positionTracker->deltaR) / (positionTracker->leftEncWheelDFromC + positionTracker->rightEncWheelDFromC);
 
         if (positionTracker->deltaA == 0)
         {
@@ -44,9 +43,13 @@ namespace position_tracker_controller {
         positionTracker->currX += positionTracker->distTraveled * sin(positionTracker->currA + (positionTracker->deltaA / 2));
         positionTracker->currY += positionTracker->distTraveled * cos(positionTracker->currA + (positionTracker->deltaA / 2));
         
-        positionTracker->currY += positionTracker->distTraveledStrafe * -sin(positionTracker->currA + (positionTracker->deltaA / 2));
         positionTracker->currX += positionTracker->distTraveledStrafe * cos(positionTracker->currA + (positionTracker->deltaA / 2));
+        positionTracker->currY += positionTracker->distTraveledStrafe * -sin(positionTracker->currA + (positionTracker->deltaA / 2));
         
         positionTracker->currA += positionTracker->deltaA;
+    }
+
+    float PositionTrackerController::distWheelMoved(float ticks, float wheelD, float ticksPerRotation) {
+        return (ticks / ticksPerRotation) * (wheelD * (float)okapi::pi);
     }
 }

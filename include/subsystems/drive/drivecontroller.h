@@ -11,6 +11,8 @@ namespace drive_controller {
             this->drive = drive;
         }
 
+        void resetDriveSens();
+
      protected:
         float getLeftSensVal();
         float getRightSensVal();
@@ -18,6 +20,7 @@ namespace drive_controller {
         float getImuSensVal();
         float getLeftDistSensVal();
         float getRightDistSensVal();
+        
         drive::Drive *drive;
 
      private:

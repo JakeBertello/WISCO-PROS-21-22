@@ -60,6 +60,15 @@ namespace drive_controller {
         }
         return val;
     }
+  
+    void DriveController::resetDriveSens() {
+        drive->getLeftRot()->reset();
+        drive->getLeftRot()->reset_position();
+        drive->getRightRot()->reset();
+        drive->getRightRot()->reset_position();
+        drive->getStrafeRot()->reset();
+        drive->getStrafeRot()->reset_position();
+    }
 
     float DriveController::getAvgLeftSensVal() {
         float sum = 0.0;
