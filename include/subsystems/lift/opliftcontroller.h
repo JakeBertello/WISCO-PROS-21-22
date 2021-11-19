@@ -15,9 +15,9 @@ namespace op_lift_controller {
         BOTH
     };
 
-    class OpLiftController : public subsystem_controller::SubsystemController<OpLiftController> {
+    class OpLiftController : public subsystem_controller::SubsystemController {
      public:
-        OpLiftController(subsystem::Subsystem<lift::Lift> *lift, pros::Controller *controller) : SubsystemController<OpLiftController>(lift) {
+        OpLiftController(subsystem::Subsystem *lift, pros::Controller *controller) : subsystem_controller::SubsystemController(lift) {
             this->controller = controller;
         }
 

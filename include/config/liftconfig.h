@@ -2,6 +2,7 @@
 #define WISCOPROS2122_CONFIG_LIFTCONFIG_H_
 
 #include "subsystems/lift/opliftcontroller.h"
+#include "subsystems/lift/lift.h"
 #include "config/config.h"
 #include "main/main.h"
     
@@ -17,10 +18,10 @@ namespace lift_config {
 
 
     /********************************* LIFT_CONFIG *********************************/
-    extern subsystem::Subsystem<lift::Lift> bassBooster;
+    extern subsystem::Subsystem bassBooster;
     extern op_lift_controller::OpLiftController bassBoosterController;
 
-    extern subsystem::Subsystem<lift::Lift> normalLift;
+    extern subsystem::Subsystem normalLift;
     extern op_lift_controller::OpLiftController normalLiftController;
 
     extern void configureLifts();
