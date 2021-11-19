@@ -25,6 +25,7 @@ void on_center_button() {
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
+	pros::lcd::initialize();
     drive_config::configureDrives();
     lift_config::configureLifts();
     intake_config::configureIntakes();

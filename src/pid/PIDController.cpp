@@ -3,11 +3,12 @@
 namespace pid_controller {
     float PIDController::setPID(float target, float currVal) {
         pid->target = target;
+        pid->currVal = currVal;
     
         pid->dT = (pros::c::millis() - pid->prevT) / 1000;
         pid->prevT = pros::c::millis();
 
-        pid->error = target - pid->sensVal;
+        pid->error = target - pid->currVal;
 
         if (fabs(pid->error) > pid->lIntBound && fabs(pid->error) < pid->uIntBound)
         {

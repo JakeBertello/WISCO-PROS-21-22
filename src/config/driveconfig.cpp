@@ -14,7 +14,7 @@ namespace drive_config {
     pros::Rotation leftRot(14);
     pros::Rotation rightRot(4);
     pros::Rotation strafeRot(5);
-    pros::Imu imu(17);
+    pros::Imu imu(19);
     pros::Distance leftDistance(8);
     pros::Distance rightDistance(9);
 
@@ -41,6 +41,11 @@ namespace drive_config {
     auton_drive_controller::AutonDriveController autonDriveController(&drive, &config::master);
 
     void configureDrives() {
+        imu.reset();
+        while (imu.is_calibrating()) {
+            pros::lcd::print(0, "Imu is calibrating");
+        }
+        pros::lcd::clear_line(0);
         frontLeftDrive.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
         middleLeftDrive.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
         backLeftDrive.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
