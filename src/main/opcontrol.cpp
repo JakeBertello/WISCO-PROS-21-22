@@ -1,4 +1,4 @@
-#include "main.h"
+#include "opcontrol.h"
 
 /**
  * Runs the operator control code. This function will be started in its own task
@@ -13,4 +13,13 @@
  * operator control task will be stopped. Re-enabling the robot will restart the
  * task, not resume it from where it left off.
  */
-void opcontrol() {}
+void opcontrol() {
+    while(true) {
+        drive_config::driveController.setDriveTank();
+        lift_config::bassBoosterController.setLiftUpAndDownButtons(B, DOWN);
+        lift_config::normalLiftController.setLiftUpAndDownButtons(R1, R2);
+        lift_config::hookerController.setLiftUpAndDownButtons(LEFT, A);
+        intake_config::grabberController.setIntakeUpAndDownButtons(L1, L2);
+        pros::delay(10);
+    }
+}

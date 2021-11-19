@@ -1,5 +1,5 @@
 #include "main.h"
-#include "subsystems/drive/drive.h"
+
 #include "initialize.h"
 
 /**
@@ -25,16 +25,9 @@ void on_center_button() {
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-    drive::Drive drive = drive::Drive::build().withLeftDriveMotor(&config::backLeftDrive)
-                                .withLeftDriveMotor(&config::middleLeftDrive)
-                                .withLeftDriveMotor(&config::backLeftDrive)
-                                .withRightDriveMotor(&config::frontRightDrive)
-                                .withRightDriveMotor(&config::middleRightDrive)
-                                .withRightDriveMotor(&config::backRightDrive)
-                                .withLeftRot(&config::leftRot)
-                                .withRightRot(&config::rightRot)
-                                .withStrafeRot(&config::strafeRot)
-                                .withImu(&config::imu);
+    drive_config::configureDrives();
+    lift_config::configureLifts();
+    intake_config::configureIntakes();
 }
 
 /**

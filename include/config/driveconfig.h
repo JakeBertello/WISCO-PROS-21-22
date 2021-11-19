@@ -1,9 +1,12 @@
-#ifndef WISCOPROS2122_MISC_CONFIG_H_
-#define WISCOPROS2122_MISC_CONFIG_H_
+#ifndef WISCOPROS2122_CONFIG_DRIVECONFIG_H_
+#define WISCOPROS2122_CONFIG_DRIVECONFIG_H_
 
+#include "subsystems/drive/opdrivecontroller.h"
+#include "config/config.h"
 #include "main/main.h"
 
-namespace config {
+
+namespace drive_config {
 
     /********************************* DRIVE_MOTORS *********************************/
     extern pros::Motor frontLeftDrive;
@@ -21,9 +24,11 @@ namespace config {
     extern pros::Distance leftDistance;
     extern pros::Distance rightDistance;
 
-    /********************************* BASS_BOOSTER_MOTORS *********************************/
+    /********************************* DRIVE_CONFIG *********************************/
+    extern drive::Drive drive;
+    extern op_drive_controller::OpDriveController driveController;
 
-    /********************************* NORMAL_LIFT_MOTORS *********************************/
+    extern void configureDrives();
 }
 
-#endif  // WISCOPROS2122_MISC_CONFIG_H_
+#endif  // WISCOPROS2122_CONFIG_DRIVECONFIG_H_
