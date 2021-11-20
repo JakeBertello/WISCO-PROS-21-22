@@ -2,6 +2,15 @@
 
 namespace drive_controller {
 
+    void DriveController::resetDriveSens() {
+        drive->getLeftRot()->reset();
+        drive->getLeftRot()->reset_position();
+        drive->getRightRot()->reset();
+        drive->getRightRot()->reset_position();
+        drive->getStrafeRot()->reset();
+        drive->getStrafeRot()->reset_position();
+    }
+
     void DriveController::tankStraightDrive(float left, float right) {
         for (pros::Motor *motor : DriveController::drive->getLeftMotors()) {
             *motor = left;
@@ -69,15 +78,6 @@ namespace drive_controller {
             val = drive->getRightDistance()->get();
         }
         return val;
-    }
-  
-    void DriveController::resetDriveSens() {
-        drive->getLeftRot()->reset();
-        drive->getLeftRot()->reset_position();
-        drive->getRightRot()->reset();
-        drive->getRightRot()->reset_position();
-        drive->getStrafeRot()->reset();
-        drive->getStrafeRot()->reset_position();
     }
 
     float DriveController::getAvgLeftSensVal() {

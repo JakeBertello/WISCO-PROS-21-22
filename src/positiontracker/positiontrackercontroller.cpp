@@ -20,7 +20,7 @@ namespace position_tracker_controller {
 
         positionTracker->globLeftEnc += deltaLEnc;
         positionTracker->globRightEnc += deltaREnc;
-        positionTracker->currStrafeEnc += deltaSEnc; 
+        positionTracker->globStrafeEnc += deltaSEnc; 
 
         // if (positionTrackerFirstRun)
         // {

@@ -10,7 +10,8 @@ namespace drive_controller {
         DriveController(drive::Drive *drive) {
             this->drive = drive;
         }
-
+        
+        void resetDriveSens();
         float getLeftSensVal();
         float getRightSensVal();
         float getStrafeSensVal();

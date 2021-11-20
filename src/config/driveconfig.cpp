@@ -36,6 +36,9 @@ namespace drive_config {
                                 .withImu(&drive_config::imu)
                                 .withTurnLongPidController(&turnLongPIDController);
 
+    position_tracker::PositionTracker positionTracker;
+    position_tracker_controller::PositionTrackerController positionTrackerController(&positionTracker, &drive);
+
     op_drive_controller::OpDriveController driveController(&drive, &config::master);
 
     auton_drive_controller::AutonDriveController autonDriveController(&drive, &config::master);
