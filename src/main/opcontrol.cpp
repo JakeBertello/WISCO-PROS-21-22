@@ -14,13 +14,14 @@
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-    drive_config::autonDriveController.turnInertPID(90);
     while(true) {
         drive_config::driveController.setDriveTank();
         lift_config::bassBoosterController.setLiftUpAndDownButtons(B, DOWN);
         lift_config::updogController.setLiftUpAndDownButtons(R1, R2);
         lift_config::hookerController.setLiftUpAndDownButtons(LEFT, A);
         intake_config::grabberController.setIntakeUpAndDownButtons(L1, L2);
+
+        config::setAutonRunBtn(RIGHT);
 
         drive_config::positionTrackerController.updatePosition();
         pros::lcd::print(0, "X = %8.4f", drive_config::positionTracker.currX);
