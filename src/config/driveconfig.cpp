@@ -14,11 +14,16 @@ namespace drive_config {
     pros::Rotation leftRot(14);
     pros::Rotation rightRot(4);
     pros::Rotation strafeRot(5);
-    pros::Imu imu(17);
+
+    pros::Imu imu(19);
     pros::Distance leftDistance(8);
     pros::Distance rightDistance(9);
 
     /********************************* DRIVE_CONFIG *********************************/
+
+    pid::PID turnLongPID(1.5, 1, 0.02, 0, 254, -1000, 1000);
+    pid_controller::PIDController turnLongPIDController(&turnLongPID);
+
     drive::Drive drive = drive::Drive::build().withLeftMotor(&drive_config::frontLeftDrive)
                                 .withLeftMotor(&drive_config::backLeftDrive)
                                 .withLeftMotor(&drive_config::middleLeftDrive)
@@ -29,11 +34,22 @@ namespace drive_config {
                                 .withLeftRot(&drive_config::leftRot)
                                 .withRightRot(&drive_config::rightRot)
                                 .withStrafeRot(&drive_config::strafeRot)
-                                .withImu(&drive_config::imu);
+                                .withImu(&drive_config::imu)
+                                .withTurnLongPidController(&turnLongPIDController);
+
+    position_tracker::PositionTracker positionTracker;
+    position_tracker_controller::PositionTrackerController positionTrackerController(&positionTracker, &drive);
 
     op_drive_controller::OpDriveController driveController(&drive, &config::master);
 
+    auton_drive_controller::AutonDriveController autonDriveController(&drive, &config::master);
+
     void configureDrives() {
+        imu.reset();
+        while (imu.is_calibrating()) {
+            pros::lcd::print(0, "Imu is calibrating");
+        }
+        pros::lcd::clear_line(0);
         frontLeftDrive.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
         middleLeftDrive.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
         backLeftDrive.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
