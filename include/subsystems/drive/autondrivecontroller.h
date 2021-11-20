@@ -13,6 +13,12 @@ namespace auton_drive_controller {
         }
 
         void turnInertPID(float target);
+
+        void turnToPoint(float targetX, float targetY);
+
+        void turnToAngle(float targetA);
+
+        void sweepTurnToAngle(float targetA);
     
      private:
         pros::Controller *controller;

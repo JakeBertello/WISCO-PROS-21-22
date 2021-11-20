@@ -24,6 +24,9 @@ namespace drive_config {
     pid::PID turnLongPID(1.5, 1, 0.02, 0, 254, -1000, 1000);
     pid_controller::PIDController turnLongPIDController(&turnLongPID);
 
+    pid::PID turnSweepPID(1.5, 1, 0.02, 0, 254, -1000, 1000);
+    pid_controller::PIDController turnSweepPIDController(&turnSweepPID);
+
     drive::Drive drive = drive::Drive::build().withLeftMotor(&drive_config::frontLeftDrive)
                                 .withLeftMotor(&drive_config::backLeftDrive)
                                 .withLeftMotor(&drive_config::middleLeftDrive)
@@ -35,7 +38,8 @@ namespace drive_config {
                                 .withRightRot(&drive_config::rightRot)
                                 .withStrafeRot(&drive_config::strafeRot)
                                 .withImu(&drive_config::imu)
-                                .withTurnLongPidController(&turnLongPIDController);
+                                .withTurnLongPidController(&turnLongPIDController)
+                                .withTurnSweepPidController(&turnSweepPIDController);
 
     position_tracker::PositionTracker positionTracker;
     position_tracker_controller::PositionTrackerController positionTrackerController(&positionTracker, &drive);

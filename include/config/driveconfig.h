@@ -3,8 +3,8 @@
 
 #include "positiontracker/positiontracker.h"
 #include "positiontracker/positiontrackercontroller.h"
-#include "subsystems/drive/opdrivecontroller.h"
 #include "subsystems/drive/autondrivecontroller.h"
+#include "subsystems/drive/opdrivecontroller.h"
 #include "pid/pidcontroller.h"
 #include "config/config.h"
 #include "main/main.h"
@@ -38,6 +38,9 @@ namespace drive_config {
 
     extern pid::PID turnLongPID;
     extern pid_controller::PIDController turnLongPIDController;
+
+    extern pid::PID turnSweepPID;
+    extern pid_controller::PIDController turnSweepPIDController;
 
     extern void configureDrives();
 }

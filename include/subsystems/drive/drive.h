@@ -30,6 +30,7 @@ namespace drive
         pid_controller::PIDController* getDriveStraightPidController();
         pid_controller::PIDController* getTurnShortPidController();
         pid_controller::PIDController* getTurnLongPidController();
+        pid_controller::PIDController* getTurnSweepPidController();
 
     private:
         std::vector<pros::Motor*> leftMotors;
@@ -44,6 +45,7 @@ namespace drive
         pid_controller::PIDController *driveStraightPidController = nullptr;
         pid_controller::PIDController *turnShortPidController = nullptr;
         pid_controller::PIDController *turnLongPidController = nullptr;
+        pid_controller::PIDController *turnSweepPidController = nullptr;
         //addposition tracker and pid controllers
     };
 
@@ -121,6 +123,11 @@ namespace drive
 
         DriveBuilder& withTurnLongPidController(pid_controller::PIDController *turnLongPidController) {
             drive.turnLongPidController = turnLongPidController;
+            return *this;
+        }
+
+        DriveBuilder& withTurnSweepPidController(pid_controller::PIDController *turnSweepPidController) {
+            drive.turnSweepPidController = turnSweepPidController;
             return *this;
         }
 
