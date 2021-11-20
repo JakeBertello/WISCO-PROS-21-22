@@ -22,8 +22,7 @@ void opcontrol() {
         intake_config::grabberController.setIntakeUpAndDownButtons(L1, L2);
 
         config::setAutonRunBtn(RIGHT);
-
-        drive_config::positionTrackerController.updatePosition();
+        
         pros::lcd::print(0, "X = %8.4f", drive_config::positionTracker.currX);
         pros::lcd::print(1, "Y = %8.4f", drive_config::positionTracker.currY);
         pros::lcd::print(2, "A = %8.4f", drive_config::positionTracker.currA*(180 / (float)okapi::pi));

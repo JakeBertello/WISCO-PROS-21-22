@@ -18,6 +18,7 @@ namespace drive_controller {
         float getImuSensVal();
         float getLeftDistSensVal();
         float getRightDistSensVal();
+        float getAvgRot();
         void tankStraightDrive(float left, float right);
         drive::Drive *drive;
 

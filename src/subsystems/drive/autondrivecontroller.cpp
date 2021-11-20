@@ -41,8 +41,8 @@ namespace auton_drive_controller {
         pidTimer.zeroTimer();
 
         while (!systemDone) {
-            DriveController::tankStraightDrive(direction * drive->getTurnLongPidController()->setPID(targetA, drive_config::positionTracker.currA),
-                            direction * -drive->getTurnLongPidController()->setPID(targetA, drive_config::positionTracker.currA));
+            DriveController::tankStraightDrive(direction * -drive->getTurnLongPidController()->setPID(targetA, drive_config::positionTracker.currA*(180 / (float)okapi::pi)),
+                            direction * drive->getTurnLongPidController()->setPID(targetA, drive_config::positionTracker.currA*(180 / (float)okapi::pi)));
 
             if (drive->getTurnLongPidController()->pid->error <= 0.5) {
                 pidTimer.startTimer();
@@ -54,6 +54,7 @@ namespace auton_drive_controller {
             }
 
             pros::delay(10);
+            drive_config::positionTrackerController.updatePosition();
         }
         tankStraightDrive(0, 0);
     }
@@ -76,12 +77,12 @@ namespace auton_drive_controller {
 
         while (!systemDone) {
             if (direction > 0) {
-                DriveController::tankStraightDrive(direction * drive->getTurnLongPidController()->setPID(targetA, drive_config::positionTracker.currA), 0);      
+                DriveController::tankStraightDrive(direction * drive->getTurnSweepPidController()->setPID(targetA, drive_config::positionTracker.currA*(180 / (float)okapi::pi)), 0);      
             } else if (direction < 0) {
-                DriveController::tankStraightDrive(0, direction * -drive->getTurnLongPidController()->setPID(targetA, drive_config::positionTracker.currA));
+                DriveController::tankStraightDrive(0, direction * -drive->getTurnSweepPidController()->setPID(targetA, drive_config::positionTracker.currA*(180 / (float)okapi::pi)));
             }
             
-            if (drive->getTurnLongPidController()->pid->error <= 0.5) {
+            if (drive->getTurnSweepPidController()->pid->error <= 0.5) {
                 pidTimer.startTimer();
             }
             if (pidTimer.currentTime() > 300) {
@@ -89,6 +90,43 @@ namespace auton_drive_controller {
                 pros::lcd::print(6, "error and time limit reached");
                 systemDone = true;
             }
+            drive_config::positionTrackerController.updatePosition();
+            pros::delay(10);
+        }
+    }
+
+    void AutonDriveController::driveToPoint(float targetX, float targetY) {
+        bool systemDone = false;
+        timer::Timer pidTimer;
+        pidTimer.stopTimer();
+        pidTimer.zeroTimer();
+
+        float deltaX = targetX - drive_config::positionTracker.currX;
+        float deltaY = targetY - drive_config::positionTracker.currY;
+
+        float targetA = atan(deltaY / deltaX);
+
+        float distance = sqrt(pow(deltaX, 2) + pow(deltaY, 2));
+        
+        float currPos;
+
+        float left, right;
+        while (!systemDone) {
+            currPos = sqrt(pow(drive_config::positionTracker.currX, 2) + pow(drive_config::positionTracker.currY, 2));
+            left = right = drive->getDriveStraightPidController()->setPID(distance, currPos);
+            left -= (fabsf(left) * drive->getDriveCorrectionPidController()->setPID(0, drive_config::positionTracker.currA*(180 / (float)okapi::pi)));\
+            right += (fabsf(right) * drive->getDriveCorrectionPidController()->setPID(0, drive_config::positionTracker.currA*(180 / (float)okapi::pi)));
+            tankStraightDrive(left, right);
+
+            if (drive->getDriveStraightPidController()->pid->error <= 0.5) {
+                pidTimer.startTimer();
+            }
+            if (pidTimer.currentTime() > 300) {
+                tankStraightDrive(0, 0);
+                pros::lcd::print(6, "error and time limit reached");
+                systemDone = true;
+            }
+            drive_config::positionTrackerController.updatePosition();
             pros::delay(10);
         }
     }

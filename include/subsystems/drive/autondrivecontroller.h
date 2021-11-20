@@ -19,6 +19,8 @@ namespace auton_drive_controller {
         void turnToAngle(float targetA);
 
         void sweepTurnToAngle(float targetA);
+
+        void driveToPoint(float targetX, float targetY);
     
      private:
         pros::Controller *controller;

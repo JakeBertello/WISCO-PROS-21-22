@@ -109,4 +109,9 @@ namespace drive_controller {
 
         return sum / drive->getStrafeMotors().size();
     }
+
+    float DriveController::getAvgRot() {
+        float sum = 0;
+        return (drive->getLeftRot()->get_position() + drive->getRightRot()->get_position()) / 2;
+    }
 }

@@ -1,4 +1,5 @@
 #include "pidcontroller.h"
+#include "config/driveconfig.h"
 
 namespace pid_controller {
     float PIDController::setPID(float target, float currVal) {
@@ -32,6 +33,13 @@ namespace pid_controller {
         pid->derivative = (pid->error - pid->prevError) * pid->dT;
         pid->prevError = pid->error;
 
+        drive_config::positionTrackerController.updatePosition();
+        pros::lcd::print(0, "X = %8.4f", drive_config::positionTracker.currX);
+        pros::lcd::print(1, "Y = %8.4f", drive_config::positionTracker.currY);
+        pros::lcd::print(2, "A = %8.4f", drive_config::positionTracker.currA*(180 / (float)okapi::pi));
+        pros::lcd::print(3, "target = %8.4f", target);
+        pros::lcd::print(4, "error = %8.4f", pid->error);
+        pros::lcd::print(5, "currVal = %8.4f", currVal);
         return (pid->kP*pid->error + pid->kI*pid->integral + pid->kD*pid->derivative + pid->kC);
     }
 

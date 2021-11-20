@@ -42,7 +42,16 @@ namespace drive_config {
     extern pid::PID turnSweepPID;
     extern pid_controller::PIDController turnSweepPIDController;
 
+    extern pid::PID driveStraightPID;
+    extern pid_controller::PIDController driveStraightPIDController;
+
+    extern pid::PID driveCorrectionPid;
+    extern pid_controller::PIDController driveCorrectionPidController;
+
     extern void configureDrives();
+
+    extern pros::Task positionTrackerTask;
+    void positionTrackerTaskFN(void* param);
 }
 
 #endif  // WISCOPROS2122_CONFIG_DRIVECONFIG_H_

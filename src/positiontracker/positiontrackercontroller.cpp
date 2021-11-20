@@ -52,4 +52,27 @@ namespace position_tracker_controller {
     float PositionTrackerController::distWheelMoved(float ticks, float wheelD, float ticksPerRotation) {
         return (ticks / ticksPerRotation) * (wheelD * (float)okapi::pi);
     }
+
+    void PositionTrackerController::reset() {
+        positionTracker->currLeftEnc = 0;
+        positionTracker->currRightEnc = 0;
+        positionTracker->currStrafeEnc = 0;
+        positionTracker->prevLeftEnc = 0;
+        positionTracker->prevRightEnc = 0;
+        positionTracker->prevStrafeEnc = 0;
+        positionTracker->globLeftEnc = 0;
+        positionTracker->globRightEnc = 0;
+        positionTracker->globStrafeEnc = 0;
+        positionTracker->deltaL = 0;
+        positionTracker->deltaR = 0;
+        positionTracker->deltaS = 0;
+        positionTracker->deltaA = 0;
+        positionTracker->deltaX = 0;
+        positionTracker->deltaY = 0;
+        positionTracker->currX = 0;
+        positionTracker->currY = 0;
+        positionTracker->currA = 0;
+        positionTracker->distTraveled = 0;
+        positionTracker->distTraveledStrafe = 0;
+    }
 }

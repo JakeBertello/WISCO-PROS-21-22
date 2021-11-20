@@ -9,29 +9,29 @@ namespace pid {
     public: 
         PID(float kP, float kI, float kD, float kC, float intLimit, float lIntBound, float uIntBound);
 
-        float kP;
-        float kI;
-        float kD;
-        float kC;
+        float kP = 0;
+        float kI = 0;
+        float kD = 0;
+        float kC = 0;
 
-        float intLimit;
-        float lIntBound;
-        float uIntBound;
+        float intLimit = 0;
+        float lIntBound = 0;
+        float uIntBound = 0;
 
-        float target;
-        float currVal;
+        float target = 0;
+        float currVal = 0;
 
-        float error;
-        float prevError;
+        float error = 0;
+        float prevError = 0;
 
-        float integral;
-        float derivative;
+        float integral = 0;
+        float derivative = 0;
 
-        float dT;
-        float prevT;
+        float dT = 0;
+        float prevT = 0;
 
-        bool changeConstantDirection;
-        float currentC;
+        bool changeConstantDirection = 0;
+        float currentC = 0;
     };
 }
 

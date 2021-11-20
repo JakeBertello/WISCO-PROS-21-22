@@ -48,4 +48,8 @@ namespace drive {
     pid_controller::PIDController* Drive::getTurnLongPidController() {
         return Drive::turnLongPidController;
     }
+
+    pid_controller::PIDController* Drive::getDriveCorrectionPidController() {
+        return Drive::driveCorrectionPidController;
+    }
 }
