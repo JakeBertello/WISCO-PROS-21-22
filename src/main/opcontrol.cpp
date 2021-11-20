@@ -29,6 +29,7 @@ void opcontrol() {
         pros::lcd::print(3, "rightRotValue = %d", drive_config::rightRot.get_position());
         pros::lcd::print(4, "leftRotValue = %d", drive_config::leftRot.get_position());
         pros::lcd::print(5, "strafeRotValue = %d", drive_config::strafeRot.get_position());
+
         pros::delay(10);
     }
 }

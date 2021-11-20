@@ -14,6 +14,7 @@ namespace drive_config {
     pros::Rotation leftRot(14);
     pros::Rotation rightRot(4);
     pros::Rotation strafeRot(5);
+
     pros::Imu imu(19);
     pros::Distance leftDistance(8);
     pros::Distance rightDistance(9);
