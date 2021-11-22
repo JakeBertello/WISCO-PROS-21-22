@@ -16,6 +16,7 @@ namespace position_tracker_controller {
 
         void updatePosition();
         void reset();
+        void calibrateConstants(float turnDegrees);
 
      private:
         float distWheelMoved(float ticks, float wheelD, float ticksPerRotation);

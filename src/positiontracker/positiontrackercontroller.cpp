@@ -1,4 +1,5 @@
 #include "positiontrackercontroller.h"
+#include "config/driveconfig.h"
 
 namespace position_tracker_controller {
     void PositionTrackerController::updatePosition() {
@@ -74,5 +75,25 @@ namespace position_tracker_controller {
         positionTracker->currA = 0;
         positionTracker->distTraveled = 0;
         positionTracker->distTraveledStrafe = 0;
+    }
+
+    void PositionTrackerController::calibrateConstants(float turnDegrees) {
+        drive_config::autonDriveController.turnInertPID(turnDegrees);
+        float angle = drive_config::driveController.getImuSensVal();
+
+        float circumferenceOfRotWheel = okapi::pi * position_tracker_config::DEFAULT_ENC_WHEEL_D;
+        float countsPerRotationPerInch = position_tracker_config::DEFAULT_ENC_TICKS_PER_ROTATION / circumferenceOfRotWheel;
+        float turnDegreesInRadians = (turnDegrees * okapi::pi) / 180;
+
+        float rotSum = drive_config::driveController.getLeftSensVal() + drive_config::driveController.getRightSensVal();
+
+        float encoderTickOffsetPerDegree = rotSum / angle;
+        float distanceBetweenLeftAndRightRot = (2 * turnDegrees * encoderTickOffsetPerDegree) / (okapi::pi * countsPerRotationPerInch);
+        float distanceFromCenterStrafeRot = ((drive_config::driveController.getStrafeSensVal() / position_tracker_config::DEFAULT_ENC_TICKS_PER_ROTATION) 
+                                        * circumferenceOfRotWheel) / turnDegreesInRadians;
+        printf("distBetweenLeftAndRight = %8.4f\r\n", distanceBetweenLeftAndRightRot);
+        printf("distFromLeft = %8.4f\r\n", distanceBetweenLeftAndRightRot / 2);
+        printf("distFromRight = %8.4f\r\n", distanceBetweenLeftAndRightRot / 2);
+        printf("distFromCenterStrafe = %8.4f\r\n", distanceFromCenterStrafeRot);
     }
 }
