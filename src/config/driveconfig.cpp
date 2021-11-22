@@ -27,7 +27,7 @@ namespace drive_config {
     pid::PID turnSweepPID(1.5, 1, 0.02, 0, 254, -1000, 1000);
     pid_controller::PIDController turnSweepPIDController(&turnSweepPID);
 
-    pid::PID driveStraightPID(3, .05, 0.02, 0, 254, -1000, 1000);
+    pid::PID driveStraightPID(3.8, .1, 0.02, 0, 254, -1000, 1000);
     pid_controller::PIDController driveStraightPIDController(&driveStraightPID);
 
     pid::PID driveCorrectionPid(0.1, 0.01, 0.01, 0, 254, -1000, 1000);
@@ -75,7 +75,7 @@ namespace drive_config {
             pros::lcd::print(0, "Imu is calibrating");
         }
         pros::lcd::clear_line(0);
-        leftRot.set_reversed(true);
+        rightRot.set_reversed(true);
         driveController.resetDriveSens();
         positionTrackerController.reset();
         frontLeftDrive.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);

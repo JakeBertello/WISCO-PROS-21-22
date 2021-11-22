@@ -26,9 +26,10 @@ void opcontrol() {
         pros::lcd::print(0, "X = %8.4f", drive_config::positionTracker.currX);
         pros::lcd::print(1, "Y = %8.4f", drive_config::positionTracker.currY);
         pros::lcd::print(2, "A = %8.4f", drive_config::positionTracker.currA*(180 / (float)okapi::pi));
-        pros::lcd::print(3, "rightRotValue = %d", drive_config::rightRot.get_position());
-        pros::lcd::print(4, "leftRotValue = %d", drive_config::leftRot.get_position());
-        pros::lcd::print(5, "strafeRotValue = %d", drive_config::strafeRot.get_position());
+        pros::lcd::print(3, "target = %8.4f", drive_config::drive.getTurnLongPidController()->pid->target);
+        // pros::lcd::print(3, "rightRotValue = %d", drive_config::rightRot.get_position());
+        // pros::lcd::print(4, "leftRotValue = %d", drive_config::leftRot.get_position());
+        // pros::lcd::print(5, "strafeRotValue = %d", drive_config::strafeRot.get_position());
 
         pros::delay(10);
     }

@@ -32,23 +32,26 @@ namespace pid_controller {
 
         pid->derivative = (pid->error - pid->prevError) * pid->dT;
         pid->prevError = pid->error;
-
-        drive_config::positionTrackerController.updatePosition();
-        pros::lcd::print(0, "X = %8.4f", drive_config::positionTracker.currX);
-        pros::lcd::print(1, "Y = %8.4f", drive_config::positionTracker.currY);
-        pros::lcd::print(2, "A = %8.4f", drive_config::positionTracker.currA*(180 / (float)okapi::pi));
-        pros::lcd::print(3, "target = %8.4f", target);
-        pros::lcd::print(4, "error = %8.4f", pid->error);
-        pros::lcd::print(5, "currVal = %8.4f", currVal);
         return (pid->kP*pid->error + pid->kI*pid->integral + pid->kD*pid->derivative + pid->kC);
     }
 
     void PIDController::resetPID() {
+        pid->kP = pid->kP;
+        pid->kI = pid->kI;
+        pid->kD = pid->kD;
+        pid->kC = pid->kC;
+        pid->intLimit = pid->intLimit;
+        pid->lIntBound = pid->lIntBound;
+        pid->uIntBound = pid->uIntBound;
+        pid->target = 0;
+        pid->currVal = 0;
+        pid->error = 0;
         pid->prevError = 0;
         pid->integral = 0;
         pid->derivative = 0;
-        pid->prevT = 0;
         pid->dT = 0;
-        pid->target = 0;
+        pid->prevT = 0;
+        pid->changeConstantDirection = false;
+        pid->currentC = 0;
     }
 }
