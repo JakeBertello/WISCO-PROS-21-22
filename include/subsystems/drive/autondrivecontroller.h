@@ -28,7 +28,7 @@ namespace auton_drive_controller {
 
      private:
         float getCurrA360(float angle);
-        float getAngleDegrees(float x, float y);
+        float getNorthFacingAngleFromPoint(float x, float y);
     
      private:
         pros::Controller *controller;

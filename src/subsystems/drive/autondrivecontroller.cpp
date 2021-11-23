@@ -79,15 +79,15 @@ namespace auton_drive_controller {
         return currAIn360;
     }
 
-    float AutonDriveController::getAngleDegrees(float x, float y) {
-        return atan2f(y, x) * 180 / okapi::pi;
+    float getNorthFacingAngleFromPoint(float x, float y) {
+        float degrees = 90 - (atan2f(y, x) * 180 / okapi::pi);
     }
 
     void AutonDriveController::turnToPoint(float targetX, float targetY) {
         float deltaX = targetX - drive_config::positionTracker.currX;
         float deltaY = targetY - drive_config::positionTracker.currY;
 
-        float targetA = getAngleDegrees(targetX, targetY);
+        float targetA = getNorthFacingAngleFromPoint(targetX, targetY);
 
         turnToAngle(targetA);
     }
@@ -246,11 +246,8 @@ namespace auton_drive_controller {
         bool systemDone = false;
         timer.stopTimer();
         timer.zeroTimer();
-        float targetA;
-        if (targetX == 0) {
-            targetA = 0;
-        }
-        targetA = getAngleDegrees(targetX, targetY) - 90; //0 degrees is the y-axis in this positioning system, so subtract 90
+        
+        
 
         float distanceX, distanceY, distance, targetDist, currVal, deltaA, left, right;
         distanceX = targetX - drive_config::positionTracker.currX;
@@ -258,9 +255,7 @@ namespace auton_drive_controller {
         distance = sqrtf(powf(distanceX, 2) + powf(distanceY, 2));
         targetDist = sqrtf(powf(targetX, 2) + powf(targetY, 2));
         currVal = sqrtf(powf(drive_config::positionTracker.currX, 2) + powf(drive_config::positionTracker.currY, 2));
-        if (targetDist - currVal < 0 && !reverse) {
-            turnToAngle(targetA + 180);
-        }
+        float targetA = getNorthFacingAngleFromPoint(distanceX, distanceY);
         turnToAngle(targetA);
         while (!systemDone) {
             if (!reverse) {
