@@ -7,6 +7,7 @@
 
 namespace autons {
     void autonomous1();
+    void autonomous2();
 }
 
 #endif  // WISCOPROS2122_MAIN_AUTONS_H_

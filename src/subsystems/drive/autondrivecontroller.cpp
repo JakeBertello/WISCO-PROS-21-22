@@ -37,34 +37,43 @@ namespace auton_drive_controller {
     }
 
     void AutonDriveController::turnToAngle(float targetA) {
+        drive->getTurnLongPidController()->resetPID();
         bool systemDone = false;
         timer.stopTimer();
         timer.zeroTimer();
-        float currVal = getCurrA360(drive_config::positionTracker.currA*(180 / okapi::pi));
-        float deltaA = targetA - currVal;
+        float currA = getCurrA360(drive_config::positionTracker.currA*(180 / okapi::pi));
+        float deltaA = targetA - currA;
 
         while (!systemDone) {
-            currVal = getCurrA360(drive_config::positionTracker.currA*(180 / okapi::pi));
-            if (deltaA > 45) {
-                DriveController::tankStraightDrive(drive->getTurnLongPidController()->setPID(targetA, currVal),
-                            -drive->getTurnLongPidController()->setPID(targetA, currVal));
-            } else {
-                DriveController::tankStraightDrive(drive->getTurnShortPidController()->setPID(targetA, currVal),
-                            -drive->getTurnShortPidController()->setPID(targetA, currVal));
-            }
-            
+            currA = getCurrA360(drive_config::positionTracker.currA*(180 / okapi::pi));
+            printf("{targetA: %f, currA: %f, deltaA: %f, errorA: %f}\r\n", targetA, currA, deltaA, drive_config::positionTracker.currA*180 / okapi::pi);
+            tankStraightDrive(drive->getTurnLongPidController()->setPID(targetA, currA),
+                            -drive->getTurnLongPidController()->setPID(targetA, currA));
             if (fabsf(drive->getTurnLongPidController()->pid->error) <= 0.5) {
                 timer.startTimer();
             }
+            // if (deltaA > 45) {
+            //     tankStraightDrive(drive->getTurnLongPidController()->setPID(targetA, currA),
+            //                 -drive->getTurnLongPidController()->setPID(targetA, currA));
+            //     if (fabsf(drive->getTurnLongPidController()->pid->error) <= 0.5) {
+            //         timer.startTimer();
+            //     }
+            // } else {
+            //     tankStraightDrive(drive->getTurnShortPidController()->setPID(targetA, currA),
+            //                 -drive->getTurnShortPidController()->setPID(targetA, currA));
+            //     if (fabsf(drive->getTurnShortPidController()->pid->error) <= 0.5) {
+            //         timer.startTimer();
+            //     }
+            // }
+            
             if (timer.currentTime() > 300) {
                 tankStraightDrive(0, 0);
                 systemDone = true;
             }
-
             pros::delay(10);
-            drive_config::positionTrackerController.updatePosition();
         }
-        tankStraightDrive(0, 0);
+        timer.stopTimer();
+        timer.zeroTimer();
     }
 
     float AutonDriveController::getCurrA360(float angle) {
@@ -72,15 +81,16 @@ namespace auton_drive_controller {
         if (currAIn360 > 360) {
             currAIn360 = fmodf(currAIn360, 360);
         } else if (currAIn360 < 0 && currAIn360 >= -360) {
-            currAIn360 = 360 + currAIn360;
+            currAIn360 += 360;
         } else if (currAIn360 < -360) {
             currAIn360 = 360 + fmodf(currAIn360, 360);
         }
         return currAIn360;
     }
 
-    float getNorthFacingAngleFromPoint(float x, float y) {
+    float AutonDriveController::getNorthFacingAngleFromPoint(float x, float y) {
         float degrees = 90 - (atan2f(y, x) * 180 / okapi::pi);
+        return degrees;
     }
 
     void AutonDriveController::turnToPoint(float targetX, float targetY) {
@@ -110,12 +120,13 @@ namespace auton_drive_controller {
             }
             if (timer.currentTime() > 300) {
                 tankStraightDrive(0, 0);
-                pros::lcd::print(6, "error and time limit reached");
                 systemDone = true;
             }
             drive_config::positionTrackerController.updatePosition();
             pros::delay(10);
         }
+        timer.stopTimer();
+        timer.zeroTimer();
     }
 
     void AutonDriveController::driveToPoint(float targetX, float targetY) {
@@ -172,6 +183,8 @@ namespace auton_drive_controller {
             }
             pros::delay(10);
         }
+        timer.stopTimer();
+        timer.zeroTimer();
     }
 
     void AutonDriveController::driveToPointAndRunHookers(float targetX, float targetY, float hookersTarget, float hookersSpeed) {
@@ -240,6 +253,8 @@ namespace auton_drive_controller {
             // }
             pros::delay(10);
         }
+        timer.stopTimer();
+        timer.zeroTimer();
     }
 
     void AutonDriveController::driveToPoint2(float targetX, float targetY, bool reverse) {
@@ -247,33 +262,41 @@ namespace auton_drive_controller {
         timer.stopTimer();
         timer.zeroTimer();
         
-        
-
-        float distanceX, distanceY, distance, targetDist, currVal, deltaA, left, right;
+        float distanceX, distanceY, distance, targetA, currVal, deltaA, left, right;
         distanceX = targetX - drive_config::positionTracker.currX;
         distanceY = targetY - drive_config::positionTracker.currY;
         distance = sqrtf(powf(distanceX, 2) + powf(distanceY, 2));
-        targetDist = sqrtf(powf(targetX, 2) + powf(targetY, 2));
         currVal = sqrtf(powf(drive_config::positionTracker.currX, 2) + powf(drive_config::positionTracker.currY, 2));
-        float targetA = getNorthFacingAngleFromPoint(distanceX, distanceY);
+        targetA = getNorthFacingAngleFromPoint(distanceX, distanceY);
+        if (reverse) {
+            targetA = -targetA;
+        }
         turnToAngle(targetA);
         while (!systemDone) {
-            if (!reverse) {
-                currVal = sqrtf(powf(drive_config::positionTracker.currX, 2) + powf(drive_config::positionTracker.currY, 2));
-                left = right = drive->getDriveStraightPidController()->setPID(distance, currVal);
-                if (drive_config::positionTracker.currA > 360 || drive_config::positionTracker.currA < -360) {
-                    deltaA = targetA - (fmodf(drive_config::positionTracker.currA, 360));
-                } else {
-                    deltaA = targetA - drive_config::positionTracker.currA;
-                }
-                left += drive->getDriveCorrectionPidController()->setPID(deltaA, 0);
-                right -= drive->getDriveCorrectionPidController()->setPID(deltaA, 0);
-            } else {
-                currVal = sqrtf(powf(drive_config::positionTracker.currX, 2) + powf(drive_config::positionTracker.currY, 2));
-                left = right = drive->getDriveStraightPidController()->setPID(distance - currVal, currVal);
-                left -= drive->getDriveCorrectionPidController()->setPID(deltaA, 0);
-                right += drive->getDriveCorrectionPidController()->setPID(deltaA, 0);
-            }
+            // if (!reverse) {
+            //     currVal = sqrtf(powf(drive_config::positionTracker.currX, 2) + powf(drive_config::positionTracker.currY, 2));
+            //     left = right = drive->getDriveStraightPidController()->setPID(distance, currVal);
+            //     if (drive_config::positionTracker.currA > 360 || drive_config::positionTracker.currA < -360) {
+            //         deltaA = targetA - (fmodf(drive_config::positionTracker.currA, 360));
+            //     } else {
+            //         deltaA = targetA - drive_config::positionTracker.currA;
+            //     }
+            //     left += drive->getDriveCorrectionPidController()->setPID(deltaA, 0);
+            //     right -= drive->getDriveCorrectionPidController()->setPID(deltaA, 0);
+            // } else {
+            //     currVal = sqrtf(powf(drive_config::positionTracker.currX, 2) + powf(drive_config::positionTracker.currY, 2));
+            //     left = right = drive->getDriveStraightPidController()->setPID(distance, currVal);
+            //     left -= drive->getDriveCorrectionPidController()->setPID(deltaA, 0);
+            //     right += drive->getDriveCorrectionPidController()->setPID(deltaA, 0);
+            // }
+            printf("{distance: %f, currVal: %f, errorDist: %f, targetA: %f, currA: %f, errorTurn: %f}\r\n", 
+            distance, currVal, drive->getDriveStraightPidController()->pid->error, 
+            targetA, drive_config::positionTracker.currA * 180 / okapi::pi, drive->getDriveCorrectionPidController()->pid->error);
+            currVal = sqrtf(powf(drive_config::positionTracker.currX, 2) + powf(drive_config::positionTracker.currY, 2));
+            left = right = drive->getDriveStraightPidController()->setPID(distance, currVal);
+            deltaA = targetA - getCurrA360(drive_config::positionTracker.currA);
+            left -= drive->getDriveCorrectionPidController()->setPID(deltaA, getCurrA360(drive_config::positionTracker.currA));
+            right += drive->getDriveCorrectionPidController()->setPID(deltaA, getCurrA360(drive_config::positionTracker.currA));
             tankStraightDrive(left, right);
 
             if (fabsf(drive->getDriveStraightPidController()->pid->error) <= 0.5) {
@@ -285,5 +308,7 @@ namespace auton_drive_controller {
             }
             pros::delay(10);
         }
+        timer.stopTimer();
+        timer.zeroTimer();
     }
 }

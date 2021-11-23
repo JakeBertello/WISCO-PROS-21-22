@@ -13,5 +13,5 @@
  * from where it left off.
  */
 void autonomous() {
-    autons::autonomous1();
+    autons::autonomous2();
 }

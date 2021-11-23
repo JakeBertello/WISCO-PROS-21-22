@@ -9,7 +9,7 @@ namespace pid_controller {
         pid->dT = (pros::c::millis() - pid->prevT) / 1000;
         pid->prevT = pros::c::millis();
 
-        pid->error = target - pid->currVal;
+        pid->error = target - currVal;
 
         if (fabs(pid->error) > pid->lIntBound && fabs(pid->error) < pid->uIntBound)
         {
