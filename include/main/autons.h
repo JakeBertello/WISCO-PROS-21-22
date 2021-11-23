@@ -3,6 +3,7 @@
 
 #include "main.h"
 #include "config/driveconfig.h"
+#include "config/liftconfig.h"
 
 namespace autons {
     void autonomous1();

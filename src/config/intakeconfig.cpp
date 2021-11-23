@@ -3,7 +3,11 @@
 namespace intake_config {
 
     /********************************* INTAKE_MOTORS *********************************/
-    pros::Motor grabberMotor(15, pros::E_MOTOR_GEARSET_36, true, pros::E_MOTOR_ENCODER_COUNTS);
+    //ORANGE
+    pros::Motor grabberMotor(18, pros::E_MOTOR_GEARSET_36, true, pros::E_MOTOR_ENCODER_COUNTS);
+
+    //BLUE
+    //pros::Motor grabberMotor(15, pros::E_MOTOR_GEARSET_36, true, pros::E_MOTOR_ENCODER_COUNTS);
 
     /********************************* INTAKE_SENSORS *********************************/
 

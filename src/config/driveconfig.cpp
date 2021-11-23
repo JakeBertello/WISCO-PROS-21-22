@@ -3,31 +3,54 @@
 namespace drive_config {
     
     /********************************* DRIVE_MOTORS *********************************/
+    //ORANGE
     pros::Motor frontLeftDrive(11, pros::E_MOTOR_GEARSET_06, true, pros::E_MOTOR_ENCODER_COUNTS);
     pros::Motor middleLeftDrive(12, pros::E_MOTOR_GEARSET_06, false, pros::E_MOTOR_ENCODER_COUNTS);
     pros::Motor backLeftDrive(13, pros::E_MOTOR_GEARSET_06, true, pros::E_MOTOR_ENCODER_COUNTS);
     pros::Motor frontRightDrive(1, pros::E_MOTOR_GEARSET_06, false, pros::E_MOTOR_ENCODER_COUNTS);
     pros::Motor middleRightDrive(2, pros::E_MOTOR_GEARSET_06, true, pros::E_MOTOR_ENCODER_COUNTS);
-    pros::Motor backRightDrive(3, pros::E_MOTOR_GEARSET_06, false, pros::E_MOTOR_ENCODER_COUNTS);
+    pros::Motor backRightDrive(4, pros::E_MOTOR_GEARSET_06, false, pros::E_MOTOR_ENCODER_COUNTS);
+
+    //BLUE
+    // pros::Motor frontLeftDrive(11, pros::E_MOTOR_GEARSET_06, true, pros::E_MOTOR_ENCODER_COUNTS);
+    // pros::Motor middleLeftDrive(12, pros::E_MOTOR_GEARSET_06, false, pros::E_MOTOR_ENCODER_COUNTS);
+    // pros::Motor backLeftDrive(13, pros::E_MOTOR_GEARSET_06, true, pros::E_MOTOR_ENCODER_COUNTS);
+    // pros::Motor frontRightDrive(1, pros::E_MOTOR_GEARSET_06, false, pros::E_MOTOR_ENCODER_COUNTS);
+    // pros::Motor middleRightDrive(2, pros::E_MOTOR_GEARSET_06, true, pros::E_MOTOR_ENCODER_COUNTS);
+    // pros::Motor backRightDrive(3, pros::E_MOTOR_GEARSET_06, false, pros::E_MOTOR_ENCODER_COUNTS);
 
     /********************************* DRIVE_SENSORS *********************************/
-    pros::Rotation leftRot(14);
-    pros::Rotation rightRot(4);
-    pros::Rotation strafeRot(5);
 
-    pros::Imu imu(20);
+    //ORANGE
+    pros::Rotation leftRot(14);
+    pros::Rotation rightRot(5);
+    pros::Rotation strafeRot(8);
+
+    pros::Imu imu(15);
     pros::Distance leftDistance(8);
     pros::Distance rightDistance(9);
 
+    //BLUE
+    // pros::Rotation leftRot(14);
+    // pros::Rotation rightRot(4);
+    // pros::Rotation strafeRot(5);
+
+    // pros::Imu imu(20);
+    // pros::Distance leftDistance(8);
+    // pros::Distance rightDistance(9);
+
     /********************************* DRIVE_CONFIG *********************************/
 
-    pid::PID turnLongPID(1.5, 1, 0.02, 0, 254, -1000, 1000);
+    pid::PID turnLongPID(1.4, 0, 0, 0, 254, -1000, 1000);
     pid_controller::PIDController turnLongPIDController(&turnLongPID);
+
+    pid::PID turnShortPID(2, 0, 0, 0, 254, -1000, 1000);
+    pid_controller::PIDController turnShortPIDController(&turnShortPID);
 
     pid::PID turnSweepPID(1.5, 1, 0.02, 0, 254, -1000, 1000);
     pid_controller::PIDController turnSweepPIDController(&turnSweepPID);
 
-    pid::PID driveStraightPID(3.8, .1, 0.02, 0, 254, -1000, 1000);
+    pid::PID driveStraightPID(6.5, .1, 0, 0, 254, -1000, 1000);
     pid_controller::PIDController driveStraightPIDController(&driveStraightPID);
 
     pid::PID driveCorrectionPid(0.1, 0.01, 0.01, 0, 254, -1000, 1000);
@@ -45,6 +68,7 @@ namespace drive_config {
                                 .withStrafeRot(&drive_config::strafeRot)
                                 .withImu(&drive_config::imu)
                                 .withTurnLongPidController(&turnLongPIDController)
+                                .withTurnShortPidController(&turnShortPIDController)
                                 .withTurnSweepPidController(&turnSweepPIDController)
                                 .withDriveStraightPidController(&driveStraightPIDController)
                                 .withDriveCorrectionPidController(&driveCorrectionPidController);
@@ -57,11 +81,10 @@ namespace drive_config {
     auton_drive_controller::AutonDriveController autonDriveController(&drive, &config::master);
 
     //TASKS
-    pros::Task positionTrackerTask (positionTrackerTaskFN, (void*)"PROS", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "my task 1");
+    pros::Task positionTrackerTask (positionTrackerTaskFN, (void*)"PROS", TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "positionTrackerTask");
 
     void positionTrackerTaskFN(void* param)
     {
-        drive_config::positionTrackerController.reset();
         while (true)
         {
             drive_config::positionTrackerController.updatePosition();

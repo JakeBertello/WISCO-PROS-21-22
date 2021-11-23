@@ -39,6 +39,9 @@ namespace drive_config {
     extern pid::PID turnLongPID;
     extern pid_controller::PIDController turnLongPIDController;
 
+    extern pid::PID turnShortPID;
+    extern pid_controller::PIDController turnShortPIDController;
+
     extern pid::PID turnSweepPID;
     extern pid_controller::PIDController turnSweepPIDController;
 

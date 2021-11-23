@@ -2,6 +2,7 @@
 #define WISCOPROS2122_CONFIG_LIFTCONFIG_H_
 
 #include "subsystems/lift/opliftcontroller.h"
+#include "subsystems/lift/autonliftcontroller.h"
 #include "config/config.h"
 #include "main/main.h"
     
@@ -28,6 +29,7 @@ namespace lift_config {
 
     extern lift::Lift hooker;
     extern op_lift_controller::OpLiftController hookerController;
+    extern auton_lift_controller::AutonLiftController autonHookerController;
 
     extern void configureLifts();
 }

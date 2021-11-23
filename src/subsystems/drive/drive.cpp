@@ -13,6 +13,10 @@ namespace drive {
         return Drive::rightMotors;
     }
 
+    std::vector<pros::Motor*> Drive::getStrafeMotors() {
+        return Drive::strafeMotors;
+    }
+
     pros::Rotation* Drive::getLeftRot() {
         return Drive::leftRot;
     }

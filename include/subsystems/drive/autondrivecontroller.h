@@ -21,6 +21,10 @@ namespace auton_drive_controller {
         void sweepTurnToAngle(float targetA);
 
         void driveToPoint(float targetX, float targetY);
+
+        void driveToPoint2(float targetX, float targetY, float targetAngle);
+
+        void driveToPointAndRunHookers(float targetX, float targetY, float hookersTarget, float hookersSpeed);
     
      private:
         pros::Controller *controller;

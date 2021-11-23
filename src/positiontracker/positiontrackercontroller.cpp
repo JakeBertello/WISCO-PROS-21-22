@@ -78,7 +78,9 @@ namespace position_tracker_controller {
     }
 
     void PositionTrackerController::calibrateConstants(float turnDegrees) {
-        drive_config::autonDriveController.turnInertPID(turnDegrees);
+        while (drive_config::driveController.getImuSensVal() < turnDegrees) {
+            pros::lcd::print(4, "imuVal = %8.4f", drive_config::driveController.getImuSensVal());
+        }
         float angle = drive_config::driveController.getImuSensVal();
 
         float circumferenceOfRotWheel = okapi::pi * position_tracker_config::DEFAULT_ENC_WHEEL_D;

@@ -15,6 +15,12 @@
  */
 void opcontrol() {
     while(true) {
+        if (config::master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)) {
+            drive_config::autonDriveController.turnToAngle(40);
+            printf("leftEnc = %8.4f\r\n", drive_config::driveController.getLeftSensVal());
+            printf("rightEnc = %8.4f\r\n", drive_config::driveController.getRightSensVal());
+            printf("strafeEnc = %8.4f\r\n", drive_config::driveController.getStrafeSensVal());
+        }
         drive_config::driveController.setDriveTank();
         lift_config::bassBoosterController.setLiftUpAndDownButtons(B, DOWN);
         lift_config::updogController.setLiftUpAndDownButtons(R1, R2);

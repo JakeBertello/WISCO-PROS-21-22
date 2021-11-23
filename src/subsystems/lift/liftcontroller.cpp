@@ -44,4 +44,14 @@ namespace lift_controller {
 
         return sum / lift->getRightMotors().size();
     }
+
+    void LiftController::moveHookers(float speed) {
+        for (pros::Motor *motor : lift->getLeftMotors()) {
+            *motor = speed;
+        }
+
+        for (pros::Motor *motor : lift->getRightMotors()) {
+            *motor = speed;
+        }
+    }
 }

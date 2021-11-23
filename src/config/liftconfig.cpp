@@ -3,14 +3,26 @@
 namespace lift_config {
     
     /********************************* LIFT_MOTORS *********************************/
+    //ORANGE
     pros::Motor bassBoosterLeft(16, pros::E_MOTOR_GEARSET_36, true, pros::E_MOTOR_ENCODER_COUNTS);
     pros::Motor bassBoosterRight(6, pros::E_MOTOR_GEARSET_36, false, pros::E_MOTOR_ENCODER_COUNTS);
 
     pros::Motor updogLeft(17, pros::E_MOTOR_GEARSET_36, true, pros::E_MOTOR_ENCODER_COUNTS);
     pros::Motor updogRight(7, pros::E_MOTOR_GEARSET_36, false, pros::E_MOTOR_ENCODER_COUNTS);
 
-    pros::Motor leftHooker(10, pros::E_MOTOR_GEARSET_36, false, pros::E_MOTOR_ENCODER_COUNTS);
-    pros::Motor rightHooker(18, pros::E_MOTOR_GEARSET_36, true, pros::E_MOTOR_ENCODER_COUNTS);
+    pros::Motor leftHooker(19, pros::E_MOTOR_GEARSET_36, false, pros::E_MOTOR_ENCODER_COUNTS);
+    pros::Motor rightHooker(9, pros::E_MOTOR_GEARSET_36, true, pros::E_MOTOR_ENCODER_COUNTS);
+
+
+    //BLUE
+    // pros::Motor bassBoosterLeft(16, pros::E_MOTOR_GEARSET_36, true, pros::E_MOTOR_ENCODER_COUNTS);
+    // pros::Motor bassBoosterRight(6, pros::E_MOTOR_GEARSET_36, false, pros::E_MOTOR_ENCODER_COUNTS);
+
+    // pros::Motor updogLeft(17, pros::E_MOTOR_GEARSET_36, true, pros::E_MOTOR_ENCODER_COUNTS);
+    // pros::Motor updogRight(7, pros::E_MOTOR_GEARSET_36, false, pros::E_MOTOR_ENCODER_COUNTS);
+
+    // pros::Motor leftHooker(10, pros::E_MOTOR_GEARSET_36, false, pros::E_MOTOR_ENCODER_COUNTS);
+    // pros::Motor rightHooker(18, pros::E_MOTOR_GEARSET_36, true, pros::E_MOTOR_ENCODER_COUNTS);
 
     /********************************* LIFT_SENSORS *********************************/
 
@@ -31,6 +43,7 @@ namespace lift_config {
                                             .withRightMotor(&rightHooker);
 
     op_lift_controller::OpLiftController hookerController(&hooker, &config::master);
+    auton_lift_controller::AutonLiftController autonHookerController(&hooker, &config::master);
 
     void configureLifts() {
         bassBoosterLeft.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);

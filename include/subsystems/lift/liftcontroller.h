@@ -10,14 +10,14 @@ namespace lift_controller {
         LiftController(lift::Lift *lift) {
             this->lift = lift;
         }
-
-     protected:
+        
         float getLeftSensVal();
         float getRightSensVal();
         float getStrafeSensVal();
         float getImuSensVal();
         float getLeftDistSensVal();
         float getRightDistSensVal();
+        void moveHookers(float speed);
         lift::Lift *lift;
 
      private:

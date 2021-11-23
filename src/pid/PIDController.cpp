@@ -32,7 +32,7 @@ namespace pid_controller {
 
         pid->derivative = (pid->error - pid->prevError) * pid->dT;
         pid->prevError = pid->error;
-        return (pid->kP*pid->error + pid->kI*pid->integral + pid->kD*pid->derivative + pid->kC);
+        return (pid->kP * pid->error + pid->kI * pid->integral + pid->kD * pid->derivative + pid->kC);
     }
 
     void PIDController::resetPID() {
