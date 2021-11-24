@@ -16,9 +16,15 @@ namespace auton_drive_controller {
 
         void turnToPoint(float targetX, float targetY);
 
+        void turnToPointShort(float targetX, float targetY);
+
         void turnToAngle(float targetA);
 
+        void turnToAngleShort(float targetA);
+
         void sweepTurnToAngle(float targetA);
+
+        void arcTurnToAngle(float targetA, float innerMotorPower);
 
         void driveToPoint(float targetX, float targetY);
 

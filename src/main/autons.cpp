@@ -7,12 +7,10 @@ namespace autons {
     }
 
     void autonomous2() {
-        drive_config::autonDriveController.driveToPoint2(0, 15, 0);
+        drive_config::autonDriveController.turnToPoint(15, 15);
         pros::delay(1000);
-        drive_config::autonDriveController.driveToPoint2(15, 15, 0);
+        drive_config::autonDriveController.turnToPoint(-15, -15);
         pros::delay(1000);
-        drive_config::autonDriveController.driveToPoint2(15, 0, 0);
-        pros::delay(1000);
-        drive_config::autonDriveController.driveToPoint2(0, 0, 0);
+        drive_config::autonDriveController.turnToPoint(0, 15);
     }
 }

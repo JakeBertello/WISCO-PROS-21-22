@@ -41,10 +41,10 @@ namespace drive_config {
 
     /********************************* DRIVE_CONFIG *********************************/
 
-    pid::PID turnLongPID(1.4, 0, 0, 0, 254, -1000, 1000);
+    pid::PID turnLongPID(1.7, 0.04, 0, 0, 254, -1000, 1000);
     pid_controller::PIDController turnLongPIDController(&turnLongPID);
 
-    pid::PID turnShortPID(2, 0, 0, 0, 254, -1000, 1000);
+    pid::PID turnShortPID(3, 0.5, 0, 0, 254, -1000, 1000);
     pid_controller::PIDController turnShortPIDController(&turnShortPID);
 
     pid::PID turnSweepPID(1.5, 1, 0.02, 0, 254, -1000, 1000);

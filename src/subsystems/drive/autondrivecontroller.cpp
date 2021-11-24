@@ -37,7 +37,6 @@ namespace auton_drive_controller {
     }
 
     void AutonDriveController::turnToAngle(float targetA) {
-        drive->getTurnLongPidController()->resetPID();
         bool systemDone = false;
         timer.stopTimer();
         timer.zeroTimer();
@@ -46,28 +45,40 @@ namespace auton_drive_controller {
 
         while (!systemDone) {
             currA = getCurrA360(drive_config::positionTracker.currA*(180 / okapi::pi));
-            printf("{targetA: %f, currA: %f, deltaA: %f, errorA: %f}\r\n", targetA, currA, deltaA, drive_config::positionTracker.currA*180 / okapi::pi);
+            deltaA = targetA - currA;
             tankStraightDrive(drive->getTurnLongPidController()->setPID(targetA, currA),
                             -drive->getTurnLongPidController()->setPID(targetA, currA));
+            printf("{targetA: %f, currA: %f, deltaA: %f, errorA: %f}\r\n", targetA, currA, deltaA, drive->getTurnLongPidController()->pid->error);
             if (fabsf(drive->getTurnLongPidController()->pid->error) <= 0.5) {
                 timer.startTimer();
             }
-            // if (deltaA > 45) {
-            //     tankStraightDrive(drive->getTurnLongPidController()->setPID(targetA, currA),
-            //                 -drive->getTurnLongPidController()->setPID(targetA, currA));
-            //     if (fabsf(drive->getTurnLongPidController()->pid->error) <= 0.5) {
-            //         timer.startTimer();
-            //     }
-            // } else {
-            //     tankStraightDrive(drive->getTurnShortPidController()->setPID(targetA, currA),
-            //                 -drive->getTurnShortPidController()->setPID(targetA, currA));
-            //     if (fabsf(drive->getTurnShortPidController()->pid->error) <= 0.5) {
-            //         timer.startTimer();
-            //     }
-            // }
-            
             if (timer.currentTime() > 300) {
                 tankStraightDrive(0, 0);
+                systemDone = true;
+            }
+            pros::delay(10);
+        }
+        timer.stopTimer();
+        timer.zeroTimer();
+    }
+
+    void AutonDriveController::turnToAngleShort(float targetA) {
+        bool systemDone = false;
+        timer.stopTimer();
+        timer.zeroTimer();
+        float currA = getCurrA360(drive_config::positionTracker.currA*(180 / okapi::pi));
+        float deltaA = targetA - currA;
+
+        while (!systemDone) {
+            currA = getCurrA360(drive_config::positionTracker.currA*(180 / okapi::pi));
+            tankStraightDrive(drive->getTurnShortPidController()->setPID(targetA, currA),
+                            -drive->getTurnShortPidController()->setPID(targetA, currA));
+            printf("{targetA: %f, currA: %f, deltaA: %f, errorA: %f}\r\n", targetA, currA, deltaA, drive->getTurnShortPidController()->pid->error);
+            if (fabsf(drive->getTurnShortPidController()->pid->error) <= 0.5) {
+                timer.startTimer();
+            }
+            
+            if (timer.currentTime() > 300) {
                 systemDone = true;
             }
             pros::delay(10);
@@ -102,6 +113,15 @@ namespace auton_drive_controller {
         turnToAngle(targetA);
     }
 
+    void AutonDriveController::turnToPointShort(float targetX, float targetY) {
+        float deltaX = targetX - drive_config::positionTracker.currX;
+        float deltaY = targetY - drive_config::positionTracker.currY;
+
+        float targetA = getNorthFacingAngleFromPoint(targetX, targetY);
+
+        turnToAngleShort(targetA);
+    }
+
     void AutonDriveController::sweepTurnToAngle(float targetA) {
         float direction = targetA / fabsf(targetA);
         bool systemDone = false;
@@ -127,6 +147,17 @@ namespace auton_drive_controller {
         }
         timer.stopTimer();
         timer.zeroTimer();
+    }
+
+    void AutonDriveController::arcTurnToAngle(float targetA, float innerMotorPower) {
+        bool systemDone = false;
+        timer.stopTimer();
+        timer.zeroTimer();
+        float left, right;
+        while (!systemDone) {
+            left = drive->getTurnSweepPidController()->setPID(targetA, drive_config::positionTracker.currA);
+        }
+        tankStraightDrive(left, right);
     }
 
     void AutonDriveController::driveToPoint(float targetX, float targetY) {

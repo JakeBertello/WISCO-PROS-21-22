@@ -10,7 +10,8 @@ namespace pid_controller {
         pid->prevT = pros::c::millis();
 
         pid->error = target - currVal;
-
+        printf("errorUsingParams = %f\r\n", target - currVal);
+        printf("errorFromPid = %f\r\n", pid->error);
         if (fabs(pid->error) > pid->lIntBound && fabs(pid->error) < pid->uIntBound)
         {
             pid->integral += pid->error * pid->dT;
@@ -32,6 +33,7 @@ namespace pid_controller {
 
         pid->derivative = (pid->error - pid->prevError) * pid->dT;
         pid->prevError = pid->error;
+        printf("errorAtEndOfLoop = %f\r\n", pid->error);
         return (pid->kP * pid->error + pid->kI * pid->integral + pid->kD * pid->derivative + pid->kC);
     }
 
