@@ -1,6 +1,8 @@
+// Inclusion guard
 #ifndef WISCOPROS2122_CONFIG_DRIVECONFIG_H_
 #define WISCOPROS2122_CONFIG_DRIVECONFIG_H_
 
+// Included libraries
 #include "positiontracker/positiontracker.h"
 #include "positiontracker/positiontrackercontroller.h"
 #include "subsystems/drive/autondrivecontroller.h"
@@ -9,7 +11,7 @@
 #include "config/config.h"
 #include "main/main.h"
 
-
+// Defines a namespace for the listed items
 namespace drive_config {
 
     /********************************* DRIVE_MOTORS *********************************/
@@ -36,6 +38,9 @@ namespace drive_config {
 
     extern auton_drive_controller::AutonDriveController autonDriveController;
 
+    extern pros::Task positionTrackerTask;
+
+    /********************************** DRIVE_PID ***********************************/
     extern pid::PID turnLongPID;
     extern pid_controller::PIDController turnLongPIDController;
 
@@ -51,9 +56,9 @@ namespace drive_config {
     extern pid::PID driveCorrectionPid;
     extern pid_controller::PIDController driveCorrectionPidController;
 
+    /********************************** DRIVE_METHODS ********************************/
     extern void configureDrives();
 
-    extern pros::Task positionTrackerTask;
     void positionTrackerTaskFN(void* param);
 }
 

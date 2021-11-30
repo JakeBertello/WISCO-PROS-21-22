@@ -1,11 +1,14 @@
+// Inclusion guard
 #ifndef WISCOPROS2122_CONFIG_LIFTCONFIG_H_
 #define WISCOPROS2122_CONFIG_LIFTCONFIG_H_
 
+// Included libraries
 #include "subsystems/lift/opliftcontroller.h"
 #include "subsystems/lift/autonliftcontroller.h"
 #include "config/config.h"
 #include "main/main.h"
     
+// Defined namespace for the lift
 namespace lift_config {
     /********************************* LIFT_MOTORS *********************************/
     extern pros::Motor bassBoosterLeft;
