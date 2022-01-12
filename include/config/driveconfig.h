@@ -143,19 +143,61 @@ namespace drive_config {
     extern pros::Task positionTrackerTask;
 
     /********************************** DRIVE_PID ***********************************/
+
+    /**
+     * @brief This is the PID controller preset for large turns
+     * 
+     */
     extern pid::PID turnLongPID;
+    /**
+     * @brief This is the controller which interfaces with the controller preset for large turns
+     * 
+     */
     extern pid_controller::PIDController turnLongPIDController;
 
+    /**
+     * @brief This is the PID controller preset for small turns
+     * 
+     */
     extern pid::PID turnShortPID;
+    /**
+     * @brief This is the controller which interfaces with the controller preset for short turns
+     * 
+     */
     extern pid_controller::PIDController turnShortPIDController;
 
+    /**
+     * @brief This is the PID controller preset for sweep turns
+     * 
+     */
     extern pid::PID turnSweepPID;
+    /**
+     * @brief This is the controller which interfaces with the controller preset for sweep turns
+     * 
+     */
     extern pid_controller::PIDController turnSweepPIDController;
 
+    /**
+     * @brief This is the PID controller preset for driving straight forward
+     * 
+     */
     extern pid::PID driveStraightPID;
+    /**
+     * @brief This is the controller which interfaces with the controller preset for driving straight forward
+     * 
+     */
     extern pid_controller::PIDController driveStraightPIDController;
 
+    /**
+     * @brief This is the PID controller preset for point-to-point movements
+     * 
+     */
     extern pid::PID driveCorrectionPid;
+
+    /**
+     * @brief This is the PID controller preset for corrections to the drive's arc of motion
+     * 
+     */
     extern pid_controller::PIDController driveCorrectionPidController;
 
     /********************************** DRIVE_METHODS ********************************/
